@@ -93,3 +93,42 @@ if __name__ == '__main__':
 ```
 
 Run via cron every 5 minutes or heartbeat check.
+
+---
+
+## Recipe 3: Self-Healing Email System
+
+**Auto-restart and monitor hydroxide:**
+
+```python
+#!/usr/bin/env python3
+import subprocess
+import time
+
+def check_and_heal():
+    # Check if running
+    result = subprocess.run(['pgrep', '-f', 'hydroxide'], capture_output=True)
+    if result.returncode != 0:
+        print('Hydroxide down, restarting...')
+        subprocess.Popen(['hydroxide', '-disable-carddav', 'serve'])
+        return False
+    
+    # Check auth
+    try:
+        import imaplib
+        c = imaplib.IMAP4('127.0.0.1', 1143)
+        c.login('email@proton.me', 'bridge-password')
+        c.logout()
+        print('✅ Email healthy')
+        return True
+    except:
+        print('❌ Auth expired - manual re-auth needed')
+        return False
+
+check_and_heal()
+```
+
+**Cron schedule:** Every 5 minutes
+- Auto-restarts process if down
+- Alerts when auth expires
+- Logs to `/tmp/email-health.log`
