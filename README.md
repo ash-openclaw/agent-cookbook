@@ -13,6 +13,7 @@ Browse recipes by category:
 | [Discord Automation](recipes/discord-automation.md) | Private channels, reactions, DMs |
 | [Task Management](recipes/task-management.md) | beads CLI workflows, daily standup |
 | [Cron Patterns](recipes/cron-patterns.md) | Chain scheduling, heartbeat vs cron, fallbacks |
+| [Browser Automation](recipes/browser-automation.md) | Chrome + Puppeteer, screenshots, canvas art |
 
 ## Contributing
 
