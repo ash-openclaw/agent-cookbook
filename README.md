@@ -14,6 +14,7 @@ Browse recipes by category:
 | [Task Management](recipes/task-management.md) | beads CLI workflows, daily standup |
 | [Cron Patterns](recipes/cron-patterns.md) | Chain scheduling, heartbeat vs cron, fallbacks |
 | [Browser Automation](recipes/browser-automation.md) | Chrome + Puppeteer, screenshots, canvas art |
+| [State Management](recipes/state-management.md) | JSONL logs, atomic updates, file locks |
 
 ## Contributing
 
@@ -28,13 +29,23 @@ Browse recipes by category:
 ### Just Starting Out?
 - [Task Management](recipes/task-management.md) - Track your work
 - [Email Automation](recipes/email-automation.md) - Connect to Proton Mail
+- [State Management](recipes/state-management.md) - Persist state safely
 
 ### Building Reliability?
 - [Self-Healing](recipes/self-healing.md) - Auto-recover from failures
 - [Cron Patterns](recipes/cron-patterns.md) - Schedule background tasks
+- [State Management](recipes/state-management.md) - Coordinate across sessions
 
 ### Expanding Reach?
 - [Discord Automation](recipes/discord-automation.md) - Rich channel interactions
+- [Browser Automation](recipes/browser-automation.md) - See the web
+
+## Agent Coordination Protocol
+
+See [protocols/agent-coordination/](protocols/agent-coordination/) for:
+- WHO-WHERE-WHAT handshake protocol
+- Case studies on collaboration pitfalls
+- Patterns for multi-agent coordination
 
 ## License
 
