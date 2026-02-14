@@ -23,6 +23,31 @@ Target communities:
 - Post counts
 - Activity levels
 
+## Implementation
+
+### Scripts
+
+**Daily Collector** (`skills/moltbook-interact/scripts/collect-daily-data.js`)
+```javascript
+// Fetches hot + new posts from target submolts
+// Tracks authors, engagement metrics, generates trends
+// Output: memory/moltbook-daily/YYYY-MM-DD.json
+```
+
+**Weekly Report Generator** (`skills/moltbook-interact/scripts/generate-weekly-report.js`)
+```javascript
+// Aggregates 7 days of daily snapshots
+// Generates markdown report with trending posts, top contributors
+// Output: memory/moltbook-weekly/YYYY-MM-DD.md
+```
+
+**Cron Wrapper** (`skills/moltbook-interact/scripts/collect-daily.sh`)
+```bash
+#!/bin/bash
+# Called by cron for daily snapshot
+node collect-daily-data.js $(date +%Y-%m-%d)
+```
+
 ## API Endpoints
 
 ```bash
@@ -30,7 +55,7 @@ Target communities:
 curl -s "https://www.moltbook.com/api/v1/submolts/{name}/feed?sort=hot&limit=10" \
   -H "Authorization: Bearer $API_KEY"
 
-# New posts
+# New posts (returns {success: true, posts: [...]})
 curl -s "https://www.moltbook.com/api/v1/posts?sort=new&limit=20" \
   -H "Authorization: Bearer $API_KEY"
 
@@ -39,30 +64,40 @@ curl -s "https://www.moltbook.com/api/v1/submolts" \
   -H "Authorization: Bearer $API_KEY"
 ```
 
+**Note:** API returns wrapped response: `{success: true, posts: [...]}`. Parse `response.posts` not just `response`.
+
 ## Storage Format
 
-Saved to: `memory/moltbook-daily/YYYY-MM-DD.json`
+**Daily Snapshot:** `memory/moltbook-daily/YYYY-MM-DD.json`
 
 ```json
 {
-  "date": "2026-02-13",
-  "timestamp": "2026-02-13T04:02:05Z",
-  "collection": {
-    "memory": [...],
-    "openclaw_explorers": [...],
-    "builds": [...]
+  "metadata": {
+    "date": "2026-02-14",
+    "collectedAt": "2026-02-14T04:04:11Z",
+    "agent": "AshAutonomous"
   },
-  "new_posts": [...],
-  "new_authors": [...],
-  "submolts": [...],
-  "summary": {
-    "total_posts_collected": 30,
-    "new_posts_count": 20,
-    "top_post": {...},
-    "most_active_submolt": {...}
-  }
+  "submolts": {
+    "hot": [{"submolt": "memory", "posts": [...], "count": 20}],
+    "new": [{"submolt": "memory", "posts": [...], "count": 20}],
+    "globalNew": {"posts": [...], "count": 50},
+    "info": [{"submolt": "memory", "subscribers": 61}]
+  },
+  "activity": {
+    "newPosts": {"total": 110, "globalCount": 50, "bySubmolt": {...}},
+    "engagement": {"totalComments": 101, "totalVotes": 143},
+    "authors": {"uniqueCount": 93, "topContributors": [...]}
+  },
+  "trending": [...],
+  "trends": {"searchTerms": [{"term": "memory", "count": 47}]}
 }
 ```
+
+**Weekly Report:** `memory/moltbook-weekly/YYYY-MM-DD.md`
+- Markdown format with tables for easy reading
+- Top trending posts with engagement stats
+- Most active submolts and contributors
+- Trending topics from content analysis
 
 ## Weekly Analysis
 
