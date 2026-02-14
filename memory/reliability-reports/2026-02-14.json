@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-02-14T08:01:32.597Z",
+  "reliabilityScore": 0,
+  "summary": {
+    "totalJobs": 0,
+    "healthy": 0,
+    "warning": 0,
+    "critical": 0,
+    "disabled": 0
+  },
+  "byPriority": {
+    "critical": {
+      "healthy": 0,
+      "total": 0,
+      "issues": []
+    },
+    "high": {
+      "healthy": 0,
+      "total": 0,
+      "issues": []
+    },
+    "medium": {
+      "healthy": 0,
+      "total": 0,
+      "issues": []
+    },
+    "other": {
+      "healthy": 0,
+      "total": 0,
+      "issues": []
+    }
+  },
+  "hydroxide": {
+    "status": "healthy",
+    "processes": 1,
+    "uptime": "unknown"
+  },
+  "disk": [
+    {
+      "filesystem": "/dev/vdc",
+      "size": "20G",
+      "used": "1.6G",
+      "available": "18G",
+      "usePercent": 9,
+      "mounted": "/data",
+      "status": "healthy"
+    },
+    {
+      "filesystem": "none",
+      "size": "7.8G",
+      "used": "670M",
+      "available": "6.8G",
+      "usePercent": 9,
+      "mounted": "/",
+      "status": "healthy"
+    }
+  ],
+  "topErrors": []
+}
