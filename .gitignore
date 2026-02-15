@@ -1,0 +1,28 @@
+# Sensitive credentials
+.credentials/github-token.txt
+.env.email
+
+# Beads database (contains task data)
+.beads/beads.db
+.beads/beads.db-*
+.beads/daemon.log
+
+# Large binary files
+*.png
+*.jpg
+*.gif
+
+# Node modules
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
