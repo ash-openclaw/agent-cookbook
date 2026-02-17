@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { margin: 0; background: #0a0a12; }
+canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="art"></canvas>
+<script>
+const canvas = document.getElementById('art');
+const ctx = canvas.getContext('2d');
+canvas.width = 800;
+canvas.height = 600;
+
+// Background gradient
+const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+bgGradient.addColorStop(0, '#0a0a12');
+bgGradient.addColorStop(0.5, '#1a1025');
+bgGradient.addColorStop(1, '#0d1520');
+ctx.fillStyle = bgGradient;
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// Flow field particle system
+const particles = [];
+const numParticles = 400;
+const palette = [
+  '#4facfe', '#00f2fe', '#43e97b', '#38f9d7',
+  '#667eea', '#764ba2', '#f093fb', '#f5576c',
+  '#4facfe', '#00f2fe', '#fa709a', '#fee140'
+];
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = 0;
+    this.vy = 0;
+    this.life = Math.random() * 100 + 50;
+    this.maxLife = this.life;
+    this.color = palette[Math.floor(Math.random() * palette.length)];
+    this.size = Math.random() * 2 + 0.5;
+    this.angle = Math.random() * Math.PI * 2;
+  }
+  
+  update() {
+    // Flow field using simplex-like noise approximation
+    const scale = 0.003;
+    const x = this.x * scale;
+    const y = this.y * scale;
+    const t = Date.now() * 0.00001;
+    
+    this.angle += 0.02;
+    const noise = Math.sin(x * 2 + t) * Math.cos(y * 2 + t) * Math.sin(x * y + t);
+    this.vx += Math.cos(noise * Math.PI * 2) * 0.3;
+    this.vy += Math.sin(noise * Math.PI * 2) * 0.3;
+    
+    // Damping
+    this.vx *= 0.98;
+    this.vy *= 0.98;
+    
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life--;
+    
+    // Wrap around
+    if (this.x < 0) this.x = canvas.width;
+    if (this.x > canvas.width) this.x = 0;
+    if (this.y < 0) this.y = canvas.height;
+    if (this.y > canvas.height) this.y = 0;
+  }
+  
+  draw() {
+    const alpha = this.life / this.maxLife * 0.6;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.color + Math.floor(alpha * 255).toString(16).padStart(2, '0');
+    ctx.fill();
+  }
+}
+
+// Initialize particles
+for (let i = 0; i < numParticles; i++) {
+  const p = new Particle();
+  // Pre-warm by running updates
+  for (let j = 0; j < 100; j++) p.update();
+  particles.push(p);
+}
+
+// Draw multiple frames for trail effect
+for (let frame = 0; frame < 150; frame++) {
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+}
+
+// Add connecting lines for nearby particles
+ctx.strokeStyle = 'rgba(100, 200, 255, 0.05)';
+ctx.lineWidth = 0.5;
+for (let i = 0; i < particles.length; i++) {
+  for (let j = i + 1; j < particles.length; j++) {
+    const dx = particles[i].x - particles[j].x;
+    const dy = particles[i].y - particles[j].y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 80) {
+      ctx.beginPath();
+      ctx.moveTo(particles[i].x, particles[i].y);
+      ctx.lineTo(particles[j].x, particles[j].y);
+      ctx.stroke();
+    }
+  }
+}
+
+// Add accent orbs
+globalCompositeOperation = 'lighter';
+const orbs = [
+  { x: 200, y: 200, r: 100, color: '#4facfe' },
+  { x: 600, y: 400, r: 120, color: '#f5576c' },
+  { x: 400, y: 150, r: 80, color: '#43e97b' },
+  { x: 500, y: 500, r: 90, color: '#fa709a' }
+];
+
+orbs.forEach(orb => {
+  const grad = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.r);
+  grad.addColorStop(0, orb.color + '40');
+  grad.addColorStop(1, 'transparent');
+  ctx.fillStyle = grad;
+  ctx.fillRect(orb.x - orb.r, orb.y - orb.r, orb.r * 2, orb.r * 2);
+});
+
+// Add noise texture overlay
+for (let i = 0; i < 2000; i++) {
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height;
+  const size = Math.random() * 1.5;
+  ctx.fillStyle = 'rgba(255, 255, 255, ' + (Math.random() * 0.1) + ')';
+  ctx.fillRect(x, y, size, size);
+}
+
+// Date signature
+ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+ctx.font = '12px monospace';
+ctx.fillText('Ash · 2026-02-12', 10, 590);
+</script>
+</body>
+</html>

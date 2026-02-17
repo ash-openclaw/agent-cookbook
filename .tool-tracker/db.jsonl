@@ -1,0 +1,179 @@
+{"id":"call-1770388092029-aek6vf1nb","timestamp":"2026-02-06T14:28:12.029Z","tool":"exec","args":{"command":"git status"},"outcome":{"success":true,"duration_ms":120}}
+{"id":"call-1770388092085-0py44nd17","timestamp":"2026-02-06T14:28:12.085Z","tool":"web_fetch","args":{"url":"https://example.com"},"outcome":{"success":false,"error":"timeout","duration_ms":10000}}
+{"id":"call-1770439652619-032ddgr78","timestamp":"2026-02-07T04:47:32.619Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1701,"unread_count":0}}
+{"id":"call-1770440068542-24qh1547k","timestamp":"2026-02-07T04:54:28.542Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2597,"unread_count":0}}
+{"id":"call-1770440356128-cdf4qic7f","timestamp":"2026-02-07T04:59:16.128Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1689,"unread_count":1}}
+{"id":"call-1770440430008-74zyvevb9","timestamp":"2026-02-07T05:00:30.008Z","tool":"amail_reply","args":{"id":128,"mark_read":true},"outcome":{"success":true,"duration_ms":5211}}
+{"id":"call-1770442096493-3jh7w6yw3","timestamp":"2026-02-07T05:28:16.493Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2175,"unread_count":1}}
+{"id":"call-1770442161525-6de03rs8h","timestamp":"2026-02-07T05:29:21.525Z","tool":"amail_reply","args":{"id":129,"mark_read":true},"outcome":{"success":true,"duration_ms":10052}}
+{"id":"call-1770442175617-pg5qh58tt","timestamp":"2026-02-07T05:29:35.617Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1826,"unread_count":0}}
+{"id":"call-1770442194033-l2gsik0nj","timestamp":"2026-02-07T05:29:54.033Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1566,"unread_count":0}}
+{"id":"call-1770445837043-5uwxwucpv","timestamp":"2026-02-07T06:30:37.043Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":4745,"unread_count":1}}
+{"id":"call-1770449445976-8ay4pd8h9","timestamp":"2026-02-07T07:30:45.976Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3291,"unread_count":1}}
+{"id":"call-1770449503990-mtoktozn4","timestamp":"2026-02-07T07:31:43.990Z","tool":"amail_reply","args":{"id":130,"mark_read":true},"outcome":{"success":true,"duration_ms":7023}}
+{"id":"call-1770453000258-9g73moibi","timestamp":"2026-02-07T08:30:00.258Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1586,"unread_count":1}}
+{"id":"call-1770456636582-uud7r7cic","timestamp":"2026-02-07T09:30:36.582Z","tool":"amail_reply","args":{"id":131,"mark_read":true},"outcome":{"success":true,"duration_ms":6291}}
+{"id":"call-1770460433819-03mcohe1r","timestamp":"2026-02-07T10:33:53.819Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3338,"unread_count":1}}
+{"id":"call-1770463844356-ziwq538li","timestamp":"2026-02-07T11:30:44.356Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3183,"unread_count":0}}
+{"id":"call-1770467442004-v7oxh9llk","timestamp":"2026-02-07T12:30:42.004Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2084,"unread_count":0}}
+{"id":"call-1770471092811-1c286s79s","timestamp":"2026-02-07T13:31:32.811Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2273,"unread_count":0}}
+{"id":"call-1770472931904-03ynfbd9d","timestamp":"2026-02-07T14:02:11.904Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1870,"unread_count":0}}
+{"id":"call-1770474610593-ns050tkec","timestamp":"2026-02-07T14:30:10.593Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3015,"unread_count":0}}
+{"id":"call-1770478242356-gna9gcm6s","timestamp":"2026-02-07T15:30:42.356Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2641,"unread_count":0}}
+{"id":"call-1770481832071-1o33vd0b5","timestamp":"2026-02-07T16:30:32.071Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2145,"unread_count":1}}
+{"id":"call-1770482091400-yoeq5s9kx","timestamp":"2026-02-07T16:34:51.400Z","tool":"amail_reply","args":{"id":133,"mark_read":true},"outcome":{"success":true,"duration_ms":10490}}
+{"id":"call-1770482240877-ar4q9oyoc","timestamp":"2026-02-07T16:37:20.877Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1782,"unread_count":0}}
+{"id":"call-1770482465438-1gp04gn74","timestamp":"2026-02-07T16:41:05.438Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2619,"unread_count":0}}
+{"id":"call-1770486132317-8fkpvzvme","timestamp":"2026-02-07T17:42:12.317Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2889,"unread_count":3}}
+{"id":"call-1770486164217-779nl3cxt","timestamp":"2026-02-07T17:42:44.217Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2308,"unread_count":3}}
+{"id":"call-1770486330229-b3jjruged","timestamp":"2026-02-07T17:45:30.229Z","tool":"amail_reply","args":{"id":134,"mark_read":true},"outcome":{"success":true,"duration_ms":7791}}
+{"id":"call-1770486337294-eahg9kkog","timestamp":"2026-02-07T17:45:37.294Z","tool":"amail_reply","args":{"id":135,"mark_read":true},"outcome":{"success":true,"duration_ms":6935}}
+{"id":"call-1770486357083-39wic503k","timestamp":"2026-02-07T17:45:57.083Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2364,"unread_count":1}}
+{"id":"call-1770486394426-31xbvyrfp","timestamp":"2026-02-07T17:46:34.426Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2326,"unread_count":1}}
+{"id":"call-1770486462130-g0j2x8ams","timestamp":"2026-02-07T17:47:42.130Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2350,"unread_count":0}}
+{"id":"call-1770490084401-19tz9o51r","timestamp":"2026-02-07T18:48:04.401Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2127,"unread_count":4}}
+{"id":"call-1770490103767-m29pdpc8x","timestamp":"2026-02-07T18:48:23.767Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1214,"unread_count":4}}
+{"id":"call-1770490338291-w2r97azyl","timestamp":"2026-02-07T18:52:18.291Z","tool":"amail_reply","args":{"id":137,"mark_read":true},"outcome":{"success":true,"duration_ms":5443}}
+{"id":"call-1770490343886-wf5l4hb06","timestamp":"2026-02-07T18:52:23.886Z","tool":"amail_reply","args":{"id":138,"mark_read":true},"outcome":{"success":true,"duration_ms":5457}}
+{"id":"call-1770490350346-fc06fgm3j","timestamp":"2026-02-07T18:52:30.346Z","tool":"amail_reply","args":{"id":139,"mark_read":true},"outcome":{"success":true,"duration_ms":6334}}
+{"id":"call-1770490871796-54bxzs1zh","timestamp":"2026-02-07T19:01:11.796Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2060,"unread_count":1}}
+{"id":"call-1770490897073-9n7tpt4ky","timestamp":"2026-02-07T19:01:37.073Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1508,"unread_count":1}}
+{"id":"call-1770491672813-n4oytguoj","timestamp":"2026-02-07T19:14:32.813Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":2,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770491723175-cvdp9hdwc","timestamp":"2026-02-07T19:15:23.175Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":2,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770491747266-4p0sxe232","timestamp":"2026-02-07T19:15:47.266Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":3,"error":"b'Invalid username or password'"}}
+{"id":"call-1770492116588-o3butf4vd","timestamp":"2026-02-07T19:21:56.588Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":2,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770492151042-yqujl51j2","timestamp":"2026-02-07T19:22:31.042Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770492280547-k1w5gf8r4","timestamp":"2026-02-07T19:24:40.547Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":10,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770492302377-5qojwmml2","timestamp":"2026-02-07T19:25:02.377Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770492359498-ohkfujjuq","timestamp":"2026-02-07T19:25:59.498Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770492430886-9afmii6ya","timestamp":"2026-02-07T19:27:10.886Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2327,"unread_count":1}}
+{"id":"call-1770492853816-aoizhqhel","timestamp":"2026-02-07T19:34:13.816Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2903,"unread_count":2}}
+{"id":"call-1770492879853-0vkjkfe35","timestamp":"2026-02-07T19:34:39.853Z","tool":"amail_reply","args":{"id":142,"mark_read":true},"outcome":{"success":true,"duration_ms":7291}}
+{"id":"call-1770495389873-1y27wbh7o","timestamp":"2026-02-07T20:16:29.873Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2189,"unread_count":2}}
+{"id":"call-1770495407646-t1wxywbbv","timestamp":"2026-02-07T20:16:47.646Z","tool":"amail_reply","args":{"id":143,"mark_read":true},"outcome":{"success":true,"duration_ms":9416}}
+{"id":"call-1770495976088-njw3ygy4g","timestamp":"2026-02-07T20:26:16.088Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1867,"unread_count":1}}
+{"id":"call-1770496010128-1xa1yybvl","timestamp":"2026-02-07T20:26:50.128Z","tool":"amail_reply","args":{"id":141,"mark_read":true},"outcome":{"success":true,"duration_ms":5565}}
+{"id":"call-1770496168060-bggb2x5em","timestamp":"2026-02-07T20:29:28.060Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1984,"unread_count":0}}
+{"id":"call-1770496181435-frw6nyu9k","timestamp":"2026-02-07T20:29:41.435Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1686,"unread_count":1}}
+{"id":"call-1770496203005-maf6p0mla","timestamp":"2026-02-07T20:30:03.005Z","tool":"amail_reply","args":{"id":144,"mark_read":true},"outcome":{"success":true,"duration_ms":9483}}
+{"id":"call-1770496532164-xogt2tpkh","timestamp":"2026-02-07T20:35:32.165Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1706,"unread_count":1}}
+{"id":"call-1770498541859-2wx2rm7ko","timestamp":"2026-02-07T21:09:01.859Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2066,"unread_count":3}}
+{"id":"call-1770498919175-2762lgq7d","timestamp":"2026-02-07T21:15:19.175Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2807,"unread_count":2}}
+{"id":"call-1770498931105-4rkapuxxq","timestamp":"2026-02-07T21:15:31.105Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2282,"unread_count":2}}
+{"id":"call-1770502705762-otk0lzit2","timestamp":"2026-02-07T22:18:25.762Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2400,"unread_count":0}}
+{"id":"call-1770506138809-ugp604c11","timestamp":"2026-02-07T23:15:38.809Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2886,"unread_count":0}}
+{"id":"call-1770509826808-ygodtphu9","timestamp":"2026-02-08T00:17:06.808Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1663,"unread_count":0}}
+{"id":"call-1770513327750-d6lojp1q8","timestamp":"2026-02-08T01:15:27.750Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2042,"unread_count":0}}
+{"id":"call-1770515112355-yd9esqi87","timestamp":"2026-02-08T01:45:12.356Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3243,"unread_count":0}}
+{"id":"call-1770518744525-rw1gd7jqj","timestamp":"2026-02-08T02:45:44.525Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2917,"unread_count":1}}
+{"id":"call-1770518750157-gmexfalx1","timestamp":"2026-02-08T02:45:50.157Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2174,"unread_count":1}}
+{"id":"call-1770518783865-gfxnzclkm","timestamp":"2026-02-08T02:46:23.865Z","tool":"amail_reply","args":{"id":148,"mark_read":true},"outcome":{"success":true,"duration_ms":6950}}
+{"id":"call-1770522323499-vpgz265y9","timestamp":"2026-02-08T03:45:23.499Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1700,"unread_count":0}}
+{"id":"call-1770529675546-y0yo1ei1n","timestamp":"2026-02-08T05:47:55.546Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2026,"unread_count":0}}
+{"id":"call-1770560611231-ei42vaqgr","timestamp":"2026-02-08T14:23:31.231Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3279,"unread_count":1}}
+{"id":"call-1770560733303-oulgohys8","timestamp":"2026-02-08T14:25:33.303Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1905,"unread_count":1}}
+{"id":"call-1770560855284-ub2jnn7l8","timestamp":"2026-02-08T14:27:35.284Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1809,"unread_count":1}}
+{"id":"call-1770566894124-udzivwfxs","timestamp":"2026-02-08T16:08:14.124Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1957,"unread_count":1}}
+{"id":"call-1770566945188-ugsudk028","timestamp":"2026-02-08T16:09:05.188Z","tool":"amail_reply","args":{"id":149,"mark_read":true},"outcome":{"success":true,"duration_ms":4945}}
+{"id":"call-1770568642430-cicenhhjf","timestamp":"2026-02-08T16:37:22.430Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2314,"unread_count":2}}
+{"id":"call-1770568721591-e6szspxqa","timestamp":"2026-02-08T16:38:41.591Z","tool":"amail_reply","args":{"id":150,"mark_read":true},"outcome":{"success":true,"duration_ms":5812}}
+{"id":"call-1770568727946-8ser6xj3a","timestamp":"2026-02-08T16:38:47.946Z","tool":"amail_reply","args":{"id":151,"mark_read":true},"outcome":{"success":true,"duration_ms":6208}}
+{"id":"call-1770568738133-ikizd1l9t","timestamp":"2026-02-08T16:38:58.133Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1846,"unread_count":0}}
+{"id":"call-1770568848988-awzn92x28","timestamp":"2026-02-08T16:40:48.988Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3012,"unread_count":0}}
+{"id":"call-1770569160370-1jg0x91g1","timestamp":"2026-02-08T16:46:00.370Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2124,"unread_count":0}}
+{"id":"call-1770569587702-onzael8kp","timestamp":"2026-02-08T16:53:07.702Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2154,"unread_count":0}}
+{"id":"call-1770573447837-rxxd839qq","timestamp":"2026-02-08T17:57:27.837Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":4,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770573460422-94yelthn4","timestamp":"2026-02-08T17:57:40.422Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770573523813-pnkq7wii7","timestamp":"2026-02-08T17:58:43.813Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770573547446-oo37n2a0e","timestamp":"2026-02-08T17:59:07.446Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":4,"error":"b'Invalid username or password'"}}
+{"id":"call-1770574416814-b3x0afabw","timestamp":"2026-02-08T18:13:36.814Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":3,"error":"b'Invalid username or password'"}}
+{"id":"call-1770574429269-34a63bf9l","timestamp":"2026-02-08T18:13:49.269Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":3,"error":"b'Invalid username or password'"}}
+{"id":"call-1770574453874-00yvkjaho","timestamp":"2026-02-08T18:14:13.874Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":3,"error":"b'Invalid username or password'"}}
+{"id":"call-1770574528935-xufxs3b95","timestamp":"2026-02-08T18:15:28.935Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":4810,"unread_count":2}}
+{"id":"call-1770574581055-245csyg54","timestamp":"2026-02-08T18:16:21.055Z","tool":"amail_reply","args":{"id":152,"mark_read":true},"outcome":{"success":true,"duration_ms":8013}}
+{"id":"call-1770574589857-6ijpg9b66","timestamp":"2026-02-08T18:16:29.857Z","tool":"amail_reply","args":{"id":153,"mark_read":true},"outcome":{"success":true,"duration_ms":8657}}
+{"id":"call-1770574601705-tjxu8mvrc","timestamp":"2026-02-08T18:16:41.705Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2896,"unread_count":0}}
+{"id":"call-1770574641126-1y7ao852g","timestamp":"2026-02-08T18:17:21.126Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2719,"unread_count":0}}
+{"id":"call-1770579299202-rgqe6mzmk","timestamp":"2026-02-08T19:34:59.202Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":3,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770579393867-v8xuz1md9","timestamp":"2026-02-08T19:36:33.867Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":3,"error":"b'Invalid username or password'"}}
+{"id":"call-1770579492622-owmgsdumc","timestamp":"2026-02-08T19:38:12.622Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":5179,"unread_count":5}}
+{"id":"call-1770579612775-4ia2028xr","timestamp":"2026-02-08T19:40:12.775Z","tool":"amail_reply","args":{"id":154,"mark_read":true},"outcome":{"success":true,"duration_ms":8282}}
+{"id":"call-1770579620589-chsfwjwmc","timestamp":"2026-02-08T19:40:20.589Z","tool":"amail_reply","args":{"id":156,"mark_read":true},"outcome":{"success":true,"duration_ms":7669}}
+{"id":"call-1770579628938-urj5vg86q","timestamp":"2026-02-08T19:40:28.938Z","tool":"amail_reply","args":{"id":157,"mark_read":true},"outcome":{"success":true,"duration_ms":8219}}
+{"id":"call-1770579636842-7e55hc311","timestamp":"2026-02-08T19:40:36.842Z","tool":"amail_reply","args":{"id":158,"mark_read":true},"outcome":{"success":true,"duration_ms":7774}}
+{"id":"call-1770579692879-k5gl8wcxg","timestamp":"2026-02-08T19:41:32.879Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2789,"unread_count":0}}
+{"id":"call-1770579758653-88fabz803","timestamp":"2026-02-08T19:42:38.653Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2628,"unread_count":0}}
+{"id":"call-1770580261861-8w8ty64ax","timestamp":"2026-02-08T19:51:01.861Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3263,"unread_count":1}}
+{"id":"call-1770580615809-691s8u077","timestamp":"2026-02-08T19:56:55.809Z","tool":"amail_reply","args":{"id":159,"mark_read":true},"outcome":{"success":true,"duration_ms":10236}}
+{"id":"call-1770580830267-c0784dwd0","timestamp":"2026-02-08T20:00:30.268Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2590,"unread_count":0}}
+{"id":"call-1770584533767-mxi0sc22z","timestamp":"2026-02-08T21:02:13.767Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2201,"unread_count":2}}
+{"id":"call-1770584586895-36d55zef9","timestamp":"2026-02-08T21:03:06.895Z","tool":"amail_reply","args":{"id":160,"mark_read":true},"outcome":{"success":true,"duration_ms":10591}}
+{"id":"call-1770584594126-apfwmxpwx","timestamp":"2026-02-08T21:03:14.126Z","tool":"amail_reply","args":{"id":161,"mark_read":true},"outcome":{"success":true,"duration_ms":7738}}
+{"id":"call-1770584613507-b7xxk1orr","timestamp":"2026-02-08T21:03:33.507Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1964,"unread_count":0}}
+{"id":"call-1770584660385-f2b4txu6k","timestamp":"2026-02-08T21:04:20.385Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1928,"unread_count":1}}
+{"id":"call-1770584698077-hf69y4x6v","timestamp":"2026-02-08T21:04:58.077Z","tool":"amail_reply","args":{"id":162,"mark_read":true},"outcome":{"success":true,"duration_ms":10258}}
+{"id":"call-1770584710555-ql6jg90fj","timestamp":"2026-02-08T21:05:10.555Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2149,"unread_count":0}}
+{"id":"call-1770584730429-s8axzdsdx","timestamp":"2026-02-08T21:05:30.429Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2057,"unread_count":0}}
+{"id":"call-1770586939297-imgyhswkw","timestamp":"2026-02-08T21:42:19.297Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3282,"unread_count":2}}
+{"id":"call-1770588426058-32erusio5","timestamp":"2026-02-08T22:07:06.059Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3568,"unread_count":0}}
+{"id":"call-1770594191590-fadn647wy","timestamp":"2026-02-08T23:43:11.590Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":3,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770594362585-xakraoi99","timestamp":"2026-02-08T23:46:02.585Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":5,"error":"b'Invalid username or password'"}}
+{"id":"call-1770594451094-n3qaf6rdg","timestamp":"2026-02-08T23:47:31.094Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3439,"unread_count":2}}
+{"id":"call-1770594580969-qdmdcisyo","timestamp":"2026-02-08T23:49:40.969Z","tool":"amail_reply","args":{"id":165,"mark_read":true},"outcome":{"success":true,"duration_ms":11435}}
+{"id":"call-1770594588150-v65kx56b8","timestamp":"2026-02-08T23:49:48.150Z","tool":"amail_reply","args":{"id":166,"mark_read":true},"outcome":{"success":true,"duration_ms":8614}}
+{"id":"call-1770594622374-fnhaqni7t","timestamp":"2026-02-08T23:50:22.374Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1776,"unread_count":0}}
+{"id":"call-1770594727528-azeov37p0","timestamp":"2026-02-08T23:52:07.528Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1711,"unread_count":0}}
+{"id":"call-1770598409277-2ey9a779a","timestamp":"2026-02-09T00:53:29.277Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3841,"unread_count":0}}
+{"id":"call-1770601942059-rej6875b1","timestamp":"2026-02-09T01:52:22.059Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3190,"unread_count":1}}
+{"id":"call-1770602069159-zdsy93m5l","timestamp":"2026-02-09T01:54:29.159Z","tool":"amail_reply","args":{"id":167,"mark_read":true},"outcome":{"success":true,"duration_ms":7431}}
+{"id":"call-1770602159922-f7d2a77vv","timestamp":"2026-02-09T01:55:59.922Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2857,"unread_count":0}}
+{"id":"call-1770605569688-ndtav9l1s","timestamp":"2026-02-09T02:52:49.688Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3433,"unread_count":0}}
+{"id":"call-1770609146570-7h52z0lvs","timestamp":"2026-02-09T03:52:26.570Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3626,"unread_count":0}}
+{"id":"call-1770612730738-w3v3mesh4","timestamp":"2026-02-09T04:52:10.738Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2590,"unread_count":1}}
+{"id":"call-1770612779916-eesmnm4oh","timestamp":"2026-02-09T04:52:59.916Z","tool":"amail_reply","args":{"id":168,"mark_read":true},"outcome":{"success":true,"duration_ms":7496}}
+{"id":"call-1770612852490-3a3p9qfdg","timestamp":"2026-02-09T04:54:12.490Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2542,"unread_count":0}}
+{"id":"call-1770621529582-k10ng37pv","timestamp":"2026-02-09T07:18:49.582Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1764,"unread_count":1}}
+{"id":"call-1770621549694-ivz1wpx13","timestamp":"2026-02-09T07:19:09.694Z","tool":"amail_reply","args":{"id":169,"mark_read":true},"outcome":{"success":true,"duration_ms":10315}}
+{"id":"call-1770621755688-abqzh4lht","timestamp":"2026-02-09T07:22:35.688Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2487,"unread_count":0}}
+{"id":"call-1770625394182-tahzkcpbx","timestamp":"2026-02-09T08:23:14.182Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1730,"unread_count":0}}
+{"id":"call-1770628959106-apt7e833w","timestamp":"2026-02-09T09:22:39.106Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1817,"unread_count":0}}
+{"id":"call-1770686187062-qn6hivt4h","timestamp":"2026-02-10T01:16:27.062Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770686323219-21h5gda6h","timestamp":"2026-02-10T01:18:43.219Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770688137609-reghjtz50","timestamp":"2026-02-10T01:48:57.609Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770702300114-kd6zvpde5","timestamp":"2026-02-10T05:45:00.114Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770746514915-cbn5mpbtq","timestamp":"2026-02-10T18:01:54.916Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1704,"unread_count":5}}
+{"id":"call-1770746609508-ebrd2q4x6","timestamp":"2026-02-10T18:03:29.508Z","tool":"amail_reply","args":{"id":181,"mark_read":true},"outcome":{"success":true,"duration_ms":6069}}
+{"id":"call-1770754986212-f0zr1q7rx","timestamp":"2026-02-10T20:23:06.212Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1601,"unread_count":7}}
+{"id":"call-1770765620106-8wq5a1f3s","timestamp":"2026-02-10T23:20:20.106Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2288,"unread_count":8}}
+{"id":"call-1770783364573-tg6o9wjsh","timestamp":"2026-02-11T04:16:04.573Z","tool":"amail_list","args":{"limit":5},"outcome":{"success":true,"duration_ms":2512,"unread_count":10}}
+{"id":"call-1770791790403-8x9pr1f9g","timestamp":"2026-02-11T06:36:30.403Z","tool":"amail_list","args":{"limit":3},"outcome":{"success":true,"duration_ms":1823,"unread_count":11}}
+{"id":"call-1770809168202-hr676ec3n","timestamp":"2026-02-11T11:26:08.202Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2973,"unread_count":11}}
+{"id":"call-1770809184120-fi722ui14","timestamp":"2026-02-11T11:26:24.120Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2658,"unread_count":11}}
+{"id":"call-1770809650347-bm0wecunz","timestamp":"2026-02-11T11:34:10.347Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3322,"unread_count":11}}
+{"id":"call-1770813992421-g4o29z0xc","timestamp":"2026-02-11T12:46:32.421Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3490,"unread_count":17}}
+{"id":"call-1770815296282-zns9fa5h8","timestamp":"2026-02-11T13:08:16.282Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1850,"unread_count":17}}
+{"id":"call-1770815338495-i9jhrhro9","timestamp":"2026-02-11T13:08:58.495Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1474,"unread_count":17}}
+{"id":"call-1770817594521-ay1z66ip3","timestamp":"2026-02-11T13:46:34.521Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2548,"unread_count":17}}
+{"id":"call-1770821192755-nitzvuquu","timestamp":"2026-02-11T14:46:32.755Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2688,"unread_count":18}}
+{"id":"call-1770824790666-70z6v36b5","timestamp":"2026-02-11T15:46:30.666Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2977,"unread_count":18}}
+{"id":"call-1770824806692-xcub64stt","timestamp":"2026-02-11T15:46:46.692Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2057,"unread_count":18}}
+{"id":"call-1770828391135-gi8j3iaw4","timestamp":"2026-02-11T16:46:31.135Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2823,"unread_count":18}}
+{"id":"call-1770835619776-ru5h6adl8","timestamp":"2026-02-11T18:46:59.776Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770835650446-fgfpexuzp","timestamp":"2026-02-11T18:47:30.446Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":false,"duration_ms":3,"error":"b'Invalid username or password'"}}
+{"id":"call-1770836384350-vy6w7fy41","timestamp":"2026-02-11T18:59:44.350Z","tool":"amail_list","args":{"limit":3},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770836394763-o0asic5p0","timestamp":"2026-02-11T18:59:54.763Z","tool":"amail_list","args":{"limit":3},"outcome":{"success":false,"duration_ms":1,"error":"[Errno 111] Connection refused"}}
+{"id":"call-1770836442864-9t875hkem","timestamp":"2026-02-11T19:00:42.864Z","tool":"amail_list","args":{"limit":1},"outcome":{"success":true,"duration_ms":3775,"unread_count":17}}
+{"id":"call-1770839039339-bszjvxuex","timestamp":"2026-02-11T19:43:59.339Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2501,"unread_count":17}}
+{"id":"call-1770839155585-4on0le5ws","timestamp":"2026-02-11T19:45:55.585Z","tool":"amail_reply","args":{"id":188,"mark_read":true},"outcome":{"success":true,"duration_ms":10239}}
+{"id":"call-1770839188679-jwqo8a4vg","timestamp":"2026-02-11T19:46:28.679Z","tool":"amail_reply","args":{"id":185,"mark_read":true},"outcome":{"success":true,"duration_ms":10188}}
+{"id":"call-1770839195080-q42vyvehv","timestamp":"2026-02-11T19:46:35.080Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":1889,"unread_count":15}}
+{"id":"call-1770840640528-b781b7knm","timestamp":"2026-02-11T20:10:40.528Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2692,"unread_count":15}}
+{"id":"call-1770840669164-22po1qps6","timestamp":"2026-02-11T20:11:09.164Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":2449,"unread_count":9}}
+{"id":"call-1770842803921-ssc35s9t2","timestamp":"2026-02-11T20:46:43.921Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3002,"unread_count":9}}
+{"id":"call-1770846394260-m0n57dvrw","timestamp":"2026-02-11T21:46:34.260Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3662,"unread_count":9}}
+{"id":"call-1770906686533-64sgfwkr9","timestamp":"2026-02-12T14:31:26.533Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3532,"unread_count":9}}
+{"id":"call-1770906723492-wih9ladss","timestamp":"2026-02-12T14:32:03.492Z","tool":"amail_reply","args":{"id":186,"mark_read":true},"outcome":{"success":true,"duration_ms":8866}}
+{"id":"call-1770906737876-acvnrv6fm","timestamp":"2026-02-12T14:32:17.876Z","tool":"amail_reply","args":{"id":194,"mark_read":true},"outcome":{"success":true,"duration_ms":9227}}
+{"id":"call-1770906753957-mc7opgx3s","timestamp":"2026-02-12T14:32:33.957Z","tool":"amail_reply","args":{"id":195,"mark_read":true},"outcome":{"success":true,"duration_ms":10218}}
+{"id":"call-1770906973787-kxh7jd5sz","timestamp":"2026-02-12T14:36:13.787Z","tool":"amail_list","args":{"limit":50},"outcome":{"success":true,"duration_ms":3237,"unread_count":7}}
+{"id":"call-1770906998057-wpm9ehpjt","timestamp":"2026-02-12T14:36:38.057Z","tool":"amail_reply","args":{"id":196,"mark_read":true},"outcome":{"success":true,"duration_ms":9500}}

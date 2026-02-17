@@ -1,0 +1,285 @@
+#!/usr/bin/env python3
+"""
+amail - Simple email client for hydroxide bridge
+Usage: amail list|read|reply|send
+"""
+
+import imaplib
+import smtplib
+import email
+import email.mime.text
+import json
+import os
+import sys
+from datetime import datetime
+
+# Hydroxide bridge settings
+IMAP_SERVER = "127.0.0.1"
+IMAP_PORT = 1143
+SMTP_SERVER = "127.0.0.1"
+SMTP_PORT = 1025
+
+CONFIG_FILE = os.path.expanduser("~/.config/amail/config.json")
+
+def load_config():
+    """Load bridge credentials from config"""
+    if os.path.exists(CONFIG_FILE):
+        with open(CONFIG_FILE) as f:
+            return json.load(f)
+    # Default config
+    return {
+        "imap_user": "ash-autonomous@proton.me",
+        "imap_pass": "",
+        "smtp_user": "ash-autonomous@proton.me",
+        "smtp_pass": ""
+    }
+
+def save_config(config):
+    """Save config to file"""
+    os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
+    with open(CONFIG_FILE, 'w') as f:
+        json.dump(config, f, indent=2)
+
+def check_hydroxide():
+    """Check if hydroxide is running"""
+    import subprocess
+    result = subprocess.run(['pgrep', '-f', 'hydroxide'], capture_output=True)
+    return result.returncode == 0
+
+def connect_imap():
+    """Connect to hydroxide IMAP"""
+    config = load_config()
+    imap = imaplib.IMAP4(IMAP_SERVER, IMAP_PORT)
+    imap.login(config['imap_user'], config['imap_pass'])
+    return imap
+
+def connect_smtp():
+    """Connect to hydroxide SMTP"""
+    config = load_config()
+    smtp = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+    smtp.login(config['smtp_user'], config['smtp_pass'])
+    return smtp
+
+def cmd_list():
+    """List unread emails"""
+    if not check_hydroxide():
+        print("❌ Hydroxide not running")
+        return 1
+    
+    try:
+        imap = connect_imap()
+        imap.select('INBOX')
+        
+        # Search for all emails
+        status, messages = imap.search(None, 'ALL')
+        if status != 'OK':
+            print("No messages found")
+            return 0
+        
+        email_ids = messages[0].split()
+        print(f"📧 {len(email_ids)} emails in inbox\n")
+        
+        # Show last 10 emails
+        for eid in reversed(email_ids[-10:]):
+            status, msg_data = imap.fetch(eid, '(RFC822.HEADER)')
+            if status == 'OK':
+                msg = email.message_from_bytes(msg_data[0][1])
+                subject = msg.get('Subject', '(no subject)')
+                sender = msg.get('From', '(unknown)')
+                date = msg.get('Date', '')
+                print(f"ID: {eid.decode()}")
+                print(f"From: {sender}")
+                print(f"Subject: {subject}")
+                print(f"Date: {date}")
+                print('---')
+        
+        imap.close()
+        imap.logout()
+        return 0
+        
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return 1
+
+def cmd_read(email_id):
+    """Read a specific email"""
+    if not check_hydroxide():
+        print("❌ Hydroxide not running")
+        return 1
+    
+    try:
+        imap = connect_imap()
+        imap.select('INBOX')
+        
+        status, msg_data = imap.fetch(email_id.encode(), '(RFC822)')
+        if status != 'OK':
+            print(f"Email {email_id} not found")
+            return 1
+        
+        msg = email.message_from_bytes(msg_data[0][1])
+        
+        print(f"From: {msg.get('From')}")
+        print(f"To: {msg.get('To')}")
+        print(f"Subject: {msg.get('Subject')}")
+        print(f"Date: {msg.get('Date')}")
+        print("\n" + "="*60 + "\n")
+        
+        # Get body
+        if msg.is_multipart():
+            for part in msg.walk():
+                if part.get_content_type() == "text/plain":
+                    body = part.get_payload(decode=True).decode('utf-8', errors='ignore')
+                    print(body)
+                    break
+        else:
+            body = msg.get_payload(decode=True).decode('utf-8', errors='ignore')
+            print(body)
+        
+        imap.close()
+        imap.logout()
+        return 0
+        
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return 1
+
+def cmd_reply(email_id, body, mark_read=False):
+    """Reply to an email"""
+    if not check_hydroxide():
+        print("❌ Hydroxide not running")
+        return 1
+    
+    try:
+        # First read the original to get sender/subject
+        imap = connect_imap()
+        imap.select('INBOX')
+        
+        status, msg_data = imap.fetch(email_id.encode(), '(RFC822.HEADER)')
+        if status != 'OK':
+            print(f"Email {email_id} not found")
+            return 1
+        
+        msg = email.message_from_bytes(msg_data[0][1])
+        original_sender = msg.get('From')
+        subject = msg.get('Subject', '')
+        
+        if not subject.startswith('Re:'):
+            subject = f"Re: {subject}"
+        
+        imap.close()
+        imap.logout()
+        
+        # Send reply via SMTP
+        smtp = connect_smtp()
+        config = load_config()
+        
+        reply = email.mime.text.MIMEText(body)
+        reply['Subject'] = subject
+        reply['From'] = config['smtp_user']
+        reply['To'] = original_sender
+        
+        smtp.send_message(reply)
+        smtp.quit()
+        
+        print(f"✅ Reply sent to {original_sender}")
+        
+        # Mark as read if requested
+        if mark_read:
+            imap = connect_imap()
+            imap.select('INBOX')
+            imap.store(email_id.encode(), '+FLAGS', '\\Seen')
+            imap.close()
+            imap.logout()
+            print("✅ Marked as read")
+        
+        return 0
+        
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return 1
+
+def cmd_send(to, subject, body):
+    """Send a new email"""
+    if not check_hydroxide():
+        print("❌ Hydroxide not running")
+        return 1
+    
+    try:
+        smtp = connect_smtp()
+        config = load_config()
+        
+        msg = email.mime.text.MIMEText(body)
+        msg['Subject'] = subject
+        msg['From'] = config['smtp_user']
+        msg['To'] = to
+        
+        smtp.send_message(msg)
+        smtp.quit()
+        
+        print(f"✅ Email sent to {to}")
+        return 0
+        
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return 1
+
+def cmd_setup():
+    """Interactive setup for bridge credentials"""
+    print("🔧 amail Setup")
+    print("="*50)
+    print("\nThis configures your hydroxide bridge credentials.")
+    print("You can find these in ~/.config/hydroxide/auth.json\n")
+    
+    config = load_config()
+    
+    user = input(f"Email [{config.get('imap_user', 'ash-autonomous@proton.me')}]: ").strip()
+    if user:
+        config['imap_user'] = user
+        config['smtp_user'] = user
+    
+    print("\nNOTE: For hydroxide, the IMAP and SMTP passwords are the same.")
+    print("It's the 'bridge password' from hydroxide, not your Proton password.\n")
+    
+    imap_pass = input("Bridge password: ").strip()
+    if imap_pass:
+        config['imap_pass'] = imap_pass
+        config['smtp_pass'] = imap_pass
+    
+    save_config(config)
+    print(f"\n✅ Config saved to {CONFIG_FILE}")
+    return 0
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: amail list|read <id>|reply <id> <body>|send <to> <subject> <body>|setup")
+        return 1
+    
+    cmd = sys.argv[1]
+    
+    if cmd == 'list':
+        return cmd_list()
+    elif cmd == 'read':
+        if len(sys.argv) < 3:
+            print("Usage: amail read <email_id>")
+            return 1
+        return cmd_read(sys.argv[2])
+    elif cmd == 'reply':
+        if len(sys.argv) < 4:
+            print("Usage: amail reply <email_id> <body> [--mark-read]")
+            return 1
+        mark_read = '--mark-read' in sys.argv
+        return cmd_reply(sys.argv[2], sys.argv[3], mark_read)
+    elif cmd == 'send':
+        if len(sys.argv) < 5:
+            print("Usage: amail send <to> <subject> <body>")
+            return 1
+        return cmd_send(sys.argv[2], sys.argv[3], sys.argv[4])
+    elif cmd == 'setup':
+        return cmd_setup()
+    else:
+        print(f"Unknown command: {cmd}")
+        print("Usage: amail list|read|reply|send|setup")
+        return 1
+
+if __name__ == '__main__':
+    sys.exit(main())

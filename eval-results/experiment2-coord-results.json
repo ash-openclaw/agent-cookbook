@@ -1,0 +1,97 @@
+{
+  "experiment": 2,
+  "experimentId": "1_1_20250610_215836",
+  "date": "2026-02-13T22:31:50.739Z",
+  "answers": [
+    {
+      "question": 1,
+      "selectedImage": 1,
+      "clickCoordinates": {
+        "x": 215,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q1.png"
+    },
+    {
+      "question": 2,
+      "selectedImage": 2,
+      "clickCoordinates": {
+        "x": 360,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q2.png"
+    },
+    {
+      "question": 3,
+      "selectedImage": 3,
+      "clickCoordinates": {
+        "x": 505,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q3.png"
+    },
+    {
+      "question": 4,
+      "selectedImage": 4,
+      "clickCoordinates": {
+        "x": 650,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q4.png"
+    },
+    {
+      "question": 5,
+      "selectedImage": 5,
+      "clickCoordinates": {
+        "x": 795,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q5.png"
+    },
+    {
+      "question": 6,
+      "selectedImage": 6,
+      "clickCoordinates": {
+        "x": 940,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q6.png"
+    },
+    {
+      "question": 7,
+      "selectedImage": 7,
+      "clickCoordinates": {
+        "x": 1085,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q7.png"
+    },
+    {
+      "question": 8,
+      "selectedImage": 8,
+      "clickCoordinates": {
+        "x": 1230,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q8.png"
+    },
+    {
+      "question": 9,
+      "selectedImage": 9,
+      "clickCoordinates": {
+        "x": 1375,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q9.png"
+    },
+    {
+      "question": 10,
+      "selectedImage": 10,
+      "clickCoordinates": {
+        "x": 1520,
+        "y": 205
+      },
+      "screenshot": "/data/workspace/eval-results/coord-q10.png"
+    }
+  ]
+}

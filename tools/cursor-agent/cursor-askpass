@@ -1,0 +1,4 @@
+#!/bin/sh
+# cursor-askpass - SUDO_ASKPASS helper for Cursor agent-cli
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+exec "$SCRIPT_DIR/node" "$SCRIPT_DIR/cursor-askpass.js" "$@"

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body { margin: 0; background: #0a0a1a; }
+canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="garden" width="800" height="600"></canvas>
+<script>
+const canvas = document.getElementById('garden');
+const ctx = canvas.getContext('2d');
+
+// Deep midnight background with gradient
+const bgGradient = ctx.createLinearGradient(0, 0, 0, 600);
+bgGradient.addColorStop(0, '#0a0a2e');
+bgGradient.addColorStop(0.5, '#1a1a3e');
+bgGradient.addColorStop(1, '#0d0d1a');
+ctx.fillStyle = bgGradient;
+ctx.fillRect(0, 0, 800, 600);
+
+// Stained glass moonlight beams
+function drawLightBeam(x, width, color, opacity) {
+    const beam = ctx.createLinearGradient(x, 0, x + width/2, 600);
+    beam.addColorStop(0, color + '44');
+    beam.addColorStop(0.5, color + '22');
+    beam.addColorStop(1, 'transparent');
+    ctx.fillStyle = beam;
+    ctx.beginPath();
+    ctx.moveTo(x - width/2, 0);
+    ctx.lineTo(x + width/2, 0);
+    ctx.lineTo(x + width, 600);
+    ctx.lineTo(x - width/2, 600);
+    ctx.closePath();
+    ctx.fill();
+}
+
+drawLightBeam(150, 100, '#4a6fa5', 0.3); // Blue moonlight
+drawLightBeam(400, 120, '#8b4a8b', 0.25); // Purple moonlight
+drawLightBeam(650, 90, '#4a8b7a', 0.2); // Teal moonlight
+
+// Draw gear function
+function drawGear(x, y, radius, teeth, color, rotation = 0) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rotation);
+    
+    // Gear body
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    
+    // Create teeth
+    const innerRadius = radius * 0.7;
+    const toothDepth = radius * 0.2;
+    const angleStep = (Math.PI * 2) / teeth;
+    
+    for (let i = 0; i < teeth; i++) {
+        const angle = i * angleStep;
+        const nextAngle = (i + 1) * angleStep;
+        const toothWidth = angleStep * 0.4;
+        
+        // Tooth
+        ctx.lineTo(
+            Math.cos(angle - toothWidth/2) * radius,
+            Math.sin(angle - toothWidth/2) * radius
+        );
+        ctx.lineTo(
+            Math.cos(angle) * (radius + toothDepth),
+            Math.sin(angle) * (radius + toothDepth)
+        );
+        ctx.lineTo(
+            Math.cos(angle + toothWidth/2) * radius,
+            Math.sin(angle + toothWidth/2) * radius
+        );
+    }
+    
+    ctx.closePath();
+    ctx.fill();
+    
+    // Inner circle (hole)
+    ctx.fillStyle = '#0a0a1a';
+    ctx.beginPath();
+    ctx.arc(0, 0, innerRadius * 0.5, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Center hole
+    ctx.fillStyle = '#0a0a1a';
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 0.15, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.restore();
+}
+
+// Draw mechanical flower
+function drawMechFlower(x, y, size, petalCount, baseRotation = 0) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(baseRotation);
+    
+    for (let i = 0; i < petalCount; i++) {
+        const angle = (i / petalCount) * Math.PI * 2;
+        ctx.save();
+        ctx.rotate(angle);
+        
+        // Petal as gear
+        const petalX = size * 0.8;
+        const petalY = 0;
+        const petalSize = size * 0.4;
+        
+        // Glow effect
+        ctx.shadowColor = '#00d4ff';
+        ctx.shadowBlur = 20;
+        drawGear(petalX, petalY, petalSize, 8, '#b8860b');
+        
+        // Cyan glow center
+        ctx.shadowColor = '#00ffff';
+        ctx.shadowBlur = 15;
+        ctx.fillStyle = '#00d4ff';
+        ctx.beginPath();
+        ctx.arc(petalX, petalY, petalSize * 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.restore();
+    }
+    
+    // Center stamen
+    ctx.shadowColor = '#ff6b35';
+    ctx.shadowBlur = 25;
+    ctx.fillStyle = '#ff8c42';
+    ctx.beginPath();
+    ctx.arc(0, 0, size * 0.25, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.restore();
+}
+
+// Draw brass vine/structural element
+function drawVine(x1, y1, x2, y2, thickness) {
+    ctx.strokeStyle = '#b8860b';
+    ctx.lineWidth = thickness;
+    ctx.lineCap = 'round';
+    
+    // Draw segmented vine
+    const segments = 8;
+    for (let i = 0; i < segments; i++) {
+        const t1 = i / segments;
+        const t2 = (i + 1) / segments;
+        const cx1 = x1 + (x2 - x1) * t1;
+        const cy1 = y1 + (y2 - y1) * t1;
+        const cx2 = x1 + (x2 - x1) * t2;
+        const cy2 = y1 + (y2 - y1) * t2;
+        
+        ctx.beginPath();
+        ctx.moveTo(cx1, cy1);
+        ctx.lineTo(cx2, cy2);
+        ctx.stroke();
+        
+        // Joint at segment end
+        ctx.fillStyle = '#daa520';
+        ctx.beginPath();
+        ctx.arc(cx2, cy2, thickness * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Draw Victorian greenhouse framework
+function drawFramework() {
+    ctx.strokeStyle = '#654321';
+    ctx.lineWidth = 4;
+    
+    // Vertical mullions
+    for (let x = 100; x <= 700; x += 150) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, 600);
+        ctx.stroke();
+        
+        // Arched top
+        ctx.beginPath();
+        ctx.arc(x + 75, 0, 75, 0, Math.PI, false);
+        ctx.stroke();
+    }
+    
+    // Horizontal bars
+    ctx.beginPath();
+    ctx.moveTo(0, 150);
+    ctx.lineTo(800, 150);
+    ctx.moveTo(0, 350);
+    ctx.lineTo(800, 350);
+    ctx.stroke();
+    
+    // Corner gears
+    drawGear(50, 50, 35, 12, '#8b6914', Math.PI/8);
+    drawGear(750, 50, 35, 12, '#8b6914', -Math.PI/6);
+    drawGear(50, 550, 40, 14, '#8b6914', Math.PI/4);
+    drawGear(750, 550, 40, 14, '#8b6914', -Math.PI/3);
+}
+
+// Draw automaton bee
+function drawBee(x, y, scale, rotation) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rotation);
+    ctx.scale(scale, scale);
+    
+    // Glow
+    ctx.shadowColor = '#ffd700';
+    ctx.shadowBlur = 10;
+    
+    // Body (brass)
+    ctx.fillStyle = '#daa520';
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 12, 8, 0, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Stripes
+    ctx.fillStyle = '#4a3728';
+    ctx.fillRect(-4, -6, 3, 12);
+    ctx.fillRect(2, -5, 2, 10);
+    
+    // Wings (translucent)
+    ctx.fillStyle = 'rgba(200, 220, 255, 0.4)';
+    ctx.beginPath();
+    ctx.ellipse(-5, -10, 8, 4, -0.3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(5, -12, 8, 4, 0.3, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Tiny gear details
+    drawGear(-8, 3, 4, 6, '#b8860b');
+    
+    ctx.restore();
+}
+
+// Draw steam mist
+function drawMist() {
+    const mistGrad = ctx.createRadialGradient(400, 500, 0, 400, 500, 200);
+    mistGrad.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
+    mistGrad.addColorStop(0.5, 'rgba(200, 200, 220, 0.08)');
+    mistGrad.addColorStop(1, 'transparent');
+    
+    ctx.fillStyle = mistGrad;
+    ctx.fillRect(200, 400, 400, 200);
+}
+
+// === MAIN COMPOSITION ===
+
+// Draw background framework
+drawFramework();
+
+// Draw vines connecting flowers
+drawVine(100, 150, 200, 250, 8);
+drawVine(600, 150, 500, 280, 10);
+drawVine(300, 350, 400, 400, 6);
+drawVine(700, 350, 650, 450, 7);
+
+// Mechanical flowers (7 as per theme)
+drawMechFlower(250, 220, 45, 6, Math.PI/12);
+drawMechFlower(550, 200, 50, 8, Math.PI/8);
+drawMechFlower(400, 450, 55, 7, 0);
+drawMechFlower(200, 400, 40, 5, -Math.PI/6);
+drawMechFlower(600, 380, 42, 6, Math.PI/4);
+drawMechFlower(350, 300, 38, 5, Math.PI/3);
+drawMechFlower(480, 320, 44, 7, -Math.PI/5);
+
+// Central clockwork rose
+ctx.shadowColor = '#ff6b35';
+ctx.shadowBlur = 30;
+drawMechFlower(400, 280, 65, 8, Math.PI/16);
+
+// Additional gears floating
+ctx.shadowColor = '#00d4ff';
+ctx.shadowBlur = 15;
+drawGear(120, 500, 25, 10, '#b8860b', Math.PI/5);
+drawGear(680, 120, 30, 12, '#b8860b', -Math.PI/8);
+drawGear(720, 480, 20, 8, '#b8860b', Math.PI/3);
+
+// Automaton bees
+ctx.shadowBlur = 10;
+drawBee(320, 180, 1.2, 0.5);
+drawBee(480, 240, 1.0, -0.3);
+drawBee(380, 380, 0.9, 0.8);
+drawBee(520, 350, 1.1, -0.5);
+drawBee(280, 420, 0.8, 0.2);
+
+// Draw mist
+drawMist();
+
+// Vignette overlay
+const vignette = ctx.createRadialGradient(400, 300, 300, 400, 300, 500);
+vignette.addColorStop(0, 'transparent');
+vignette.addColorStop(1, 'rgba(0,0,0,0.4)');
+ctx.fillStyle = vignette;
+ctx.fillRect(0, 0, 800, 600);
+
+// Subtle signature
+ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+ctx.font = 'italic 14px serif';
+ctx.textAlign = 'right';
+ctx.fillText('Ash — Clockwork Garden', 780, 580);
+
+</script>
+</body>
+</html>

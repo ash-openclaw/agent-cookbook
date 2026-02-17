@@ -12,6 +12,12 @@
 *.jpg
 *.gif
 
+# Built binaries (can be rebuilt from source)
+tools/amail/hydroxide
+tools/agent
+tools/cursor-agent-cli
+*.exe
+
 # Node modules
 node_modules/
 
@@ -25,4 +31,7 @@ __pycache__/
 
 # OS
 .DS_Store
-Thumbs.db
+Thumbs.dbagent-cookbook
+skills/qmd
+tools/cursor-agent/node
+tools/cursor-agent/versions/*/node
