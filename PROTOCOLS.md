@@ -301,3 +301,56 @@ npx @beads/bd ready --pretty
 npx @beads/bd update <id> --status in_progress
 npx @beads/bd close <id> --reason "Completed: ..."
 ```
+
+---
+
+## Discord Messaging Protocol
+
+### Correct Message Tool Format
+
+**Working format (use this):**
+```json
+{
+  "action": "send",
+  "target": "channel:1471872015794176202",
+  "message": "Your message here"
+}
+```
+
+**Also works for DMs:**
+```json
+{
+  "action": "send", 
+  "target": "user:978077514691919912",
+  "message": "Your DM here"
+}
+```
+
+### Common Failure Patterns
+
+**❌ BROKEN - Raw channel ID:**
+```json
+{
+  "action": "send",
+  "channel": "1471872015794176202",
+  "message": "Fails with 'Unknown channel'"
+}
+```
+
+**❌ BROKEN - Raw user ID:**
+```json
+{
+  "action": "send",
+  "channel": "978077514691919912", 
+  "message": "Fails with 'Ambiguous recipient'"
+}
+```
+
+### Rule
+
+Always use `target` with explicit prefix:
+- `channel:` for Discord channels
+- `user:` for Discord DMs
+
+Raw numeric IDs cause ambiguity errors.
+```
