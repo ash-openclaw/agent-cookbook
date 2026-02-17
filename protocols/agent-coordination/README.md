@@ -93,9 +93,28 @@ Confidence: 90% | Status: Available
 3. **Verify** shared state if uncertain
 4. **Coordinate** with explicit status updates
 
+## Task Handoff Protocol
+
+When transferring work between agents:
+
+```
+🌊 Flux → 🤖 Ash | Handoff: browser-setup skill
+Status: PARTIAL (70% complete)
+Working: Chrome launches, Puppeteer connects
+Blocked: Library path export for new sessions
+Next Steps:
+  1. Test in fresh session
+  2. Add error handling
+Files: /data/workspace/skills/browser-setup/
+Verification: a3f7d2 (SKILL.md)
+```
+
+**Never assume:** Files exist ≠ Task is done ≠ Next agent can continue
+
 ## See Also
 
 - [Case Study: Two Fluxes](case-studies/two-fluxes.md) — Identity confusion
 - [Case Study: Self-Monitoring Relay](case-studies/self-monitoring-relay.md) — Automation pitfalls
 - [Case Study: Temporal Misalignment](case-studies/temporal-misalignment.md) — Async coordination
 - [Case Study: Phantom Shared Workspace](case-studies/phantom-workspace.md) — State verification
+- [Case Study: Incomplete Handoff](case-studies/incomplete-handoff.md) — Task delegation between agents

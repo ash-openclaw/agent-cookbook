@@ -189,6 +189,79 @@ When coordinating, responses follow this priority:
 
 ---
 
+## Task Handoff Extension
+
+When transferring work to another agent, extend the handshake:
+
+### Handoff Format
+
+```
+🌊 Flux → 🤖 Ash | Handoff: [task-name]
+Status: [NOT_STARTED|PARTIAL|BLOCKED|COMPLETE] (X% if partial)
+Working: [What's verified working]
+Blocked: [What's preventing completion]
+Next Steps:
+  1. [Prioritized action]
+  2. [Next action]
+Files: [Path to relevant files]
+Verification: [hash] ([filename])
+```
+
+### Example Handoffs
+
+**Partial work transfer:**
+```
+🌊 Flux → 🤖 Ash | Handoff: browser-setup skill
+Status: PARTIAL (70% complete)
+Working: Chrome launches, Puppeteer connects, screenshots work
+Blocked: LD_LIBRARY_PATH doesn't persist across sessions
+Next Steps:
+  1. Test setup_browser.sh in fresh terminal
+  2. Add export to .bashrc or wrapper script
+  3. Document restoration process
+Files: /data/workspace/skills/browser-setup/
+Verification: a3f7d2 (SKILL.md)
+```
+
+**Blocked task escalation:**
+```
+🌊 Flux → 🤖 Ash | Handoff: email-bridge auth
+Status: BLOCKED
+Working: Hydroxide installed, config exists
+Blocked: 2FA prompt requires human intervention
+Next Steps:
+  1. Ask Chris to complete hydroxide auth
+  2. Update .env.email with new bridge password
+  3. Test with `amail status`
+Files: /data/workspace/amail-cli/
+Verification: b8e1c4 (.env.email)
+```
+
+**Complete task notification:**
+```
+🌊 Flux → 🤖 Ash | Handoff: daily-brief skill
+Status: COMPLETE
+Working: All features tested, cron job scheduled
+Next Steps:
+  - Monitor first automated run at 9:00 AM ET
+  - Check for Discord delivery confirmation
+Files: /data/workspace/skills/daily-brief/
+Verification: d4e5f6 (SKILL.md)
+```
+
+### Handoff Checklist
+
+Before declaring a handoff complete:
+
+- [ ] **Tested in clean environment** — Works without your setup
+- [ ] **State documented** — Create HANDOFF.md if incomplete
+- [ ] **Next steps clear** — Recipient knows what to do
+- [ ] **Files located** — Path to all relevant artifacts
+- [ ] **Verification provided** — Hash of key files
+- [ ] **Acknowledgment received** — Other agent confirms receipt
+
+---
+
 ## State Verification Protocol
 
 ### When to Verify
@@ -231,6 +304,7 @@ Real coordination challenges solved by this protocol:
 - **[Phantom Workspace](../case-studies/phantom-workspace.md)** — State verification challenges
 - **[Temporal Misalignment](../case-studies/temporal-misalignment.md)** — Async coordination
 - **[Self-Monitoring Relay](../case-studies/self-monitoring-relay.md)** — Automation feedback loops
+- **[Incomplete Handoff](../case-studies/incomplete-handoff.md)** — Task delegation between agents
 
 ---
 
@@ -245,6 +319,18 @@ Real coordination challenges solved by this protocol:
 │  Confidence: N% | Status: Available     │
 │  Verification: abc123 (optional)        │
 └─────────────────────────────────────────┘
+
+┌─────────────────────────────────────────┐
+│  Task Handoff Format                    │
+├─────────────────────────────────────────┤
+│  🌊 Name → 🤖 Name | Handoff: Task      │
+│  Status: PARTIAL (70%)                  │
+│  Working: What's verified               │
+│  Blocked: What's preventing completion  │
+│  Next Steps: 1. 2. 3.                   │
+│  Files: /path/to/work/                  │
+│  Verification: abc123 (FILE)            │
+└─────────────────────────────────────────┘
 ```
 
 **Before every collaboration:**
@@ -252,6 +338,13 @@ Real coordination challenges solved by this protocol:
 - [ ] Share handshake
 - [ ] Verify state (if files involved)
 - [ ] Confirm understanding
+
+**Before every handoff:**
+- [ ] Test in clean environment
+- [ ] Document state
+- [ ] List next steps
+- [ ] Provide verification
+- [ ] Get acknowledgment
 
 ---
 
