@@ -1,6 +1,67 @@
 # Discord Bot Automation
 
-## Recipe 1: Create Private Channels
+## Recipe 1: OpenClaw Message Tool Format
+
+**Critical:** Always use explicit recipient prefixes to avoid "Ambiguous recipient" errors.
+
+### Working Format
+
+```json
+{
+  "action": "send",
+  "target": "channel:1471872015794176202",
+  "message": "Your message here"
+}
+```
+
+For DMs:
+```json
+{
+  "action": "send",
+  "target": "user:978077514691919912",
+  "message": "Your DM here"
+}
+```
+
+### Common Failure Patterns
+
+**❌ BROKEN - Raw channel ID:**
+```json
+{
+  "action": "send",
+  "channel": "1471872015794176202",
+  "message": "Fails with 'Unknown channel'"
+}
+```
+
+**❌ BROKEN - Raw user ID:**
+```json
+{
+  "action": "send",
+  "channel": "978077514691919912",
+  "message": "Fails with 'Ambiguous recipient'"
+}
+```
+
+### Integration with Cron Jobs
+
+When creating cron jobs that send Discord messages:
+
+```json
+{
+  "action": "cron",
+  "payload": {
+    "kind": "systemEvent",
+    "text": "Report to Discord channel:1471872015794176202"
+  }
+}
+```
+
+**Note:** The cron payload text should include the channel reference, but the actual message tool call must use the `target:` format.
+
+---
+
+## Recipe 3: Create Private Channels
 
 **Use case:** Auto-create private Discord channels with permission overwrites
 
@@ -33,7 +94,7 @@ curl -s -X POST "https://discord.com/api/v10/guilds/${GUILD_ID}/channels" \
 
 ---
 
-## Recipe 2: Auto-React to Messages
+## Recipe 4: Auto-React to Messages
 
 **React with emoji without full reply:**
 
@@ -55,7 +116,7 @@ add_reaction("channel-id", "message-id", "👍")
 
 ---
 
-## Recipe 3: Send DMs via API
+## Recipe 5: Send DMs via API
 
 **Send direct message to a user:**
 
