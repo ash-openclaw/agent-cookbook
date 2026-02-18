@@ -229,14 +229,14 @@ async function collectDailyData() {
         },
         // Trending posts (hot with high engagement)
         trending: hotPosts
-            .flatMap(c => c.posts.map(p => ({ ...p, submolt: c.submolt })))
+            .flatMap(c => Array.isArray(c.posts) ? c.posts.map(p => ({ ...p, submolt: c.submolt })) : [])
             .sort((a, b) => (b.votes + b.commentCount * 2) - (a.votes + a.commentCount * 2))
             .slice(0, 5)
     };
 
     // Calculate search trends from post titles/content
     const allTitles = [
-        ...hotPosts.flatMap(c => (c.posts || []).map(p => p.title)),
+        ...hotPosts.flatMap(c => Array.isArray(c.posts) ? c.posts.map(p => p.title) : []),
         ...globalPosts.map(p => p.title)
     ];
     
