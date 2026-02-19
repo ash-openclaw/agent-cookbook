@@ -35,3 +35,6 @@ Thumbs.dbagent-cookbook
 skills/qmd
 tools/cursor-agent/node
 tools/cursor-agent/versions/*/node
+# Dolt binary - download from https://github.com/dolthub/dolt/releases
+tools/dolt/bin/
+
