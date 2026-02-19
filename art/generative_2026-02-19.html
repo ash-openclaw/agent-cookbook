@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { margin: 0; background: #0a0a1a; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="1200" height="800"></canvas>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+// Deep space gradient background
+const gradient = ctx.createRadialGradient(600, 400, 0, 600, 400, 700);
+gradient.addColorStop(0, '#1a1a3e');
+gradient.addColorStop(0.5, '#0f0f2e');
+gradient.addColorStop(1, '#050510');
+ctx.fillStyle = gradient;
+ctx.fillRect(0, 0, 1200, 800);
+
+// Star field
+for (let i = 0; i < 200; i++) {
+    const x = Math.random() * 1200;
+    const y = Math.random() * 800;
+    const size = Math.random() * 2;
+    const opacity = Math.random() * 0.8;
+    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Constellation nodes forming an abstract face profile
+const nodes = [
+    // Forehead
+    {x: 400, y: 200, size: 8, color: '#64d8ff'},
+    {x: 450, y: 180, size: 6, color: '#64d8ff'},
+    {x: 500, y: 170, size: 7, color: '#8de0ff'},
+    // Eye region
+    {x: 380, y: 280, size: 10, color: '#ff6b9d'},
+    {x: 420, y: 290, size: 5, color: '#ff8fab'},
+    {x: 350, y: 270, size: 6, color: '#ffc2d1'},
+    // Nose bridge
+    {x: 460, y: 320, size: 7, color: '#ffd166'},
+    {x: 480, y: 360, size: 5, color: '#ffe8ad'},
+    // Cheek/Mouth area
+    {x: 420, y: 400, size: 8, color: '#06d6a0'},
+    {x: 380, y: 420, size: 6, color: '#0adab5'},
+    {x: 340, y: 410, size: 5, color: '#8efce6'},
+    // Chin/Jaw
+    {x: 300, y: 480, size: 7, color: '#a78bfa'},
+    {x: 350, y: 500, size: 6, color: '#c4b5fd'},
+    {x: 400, y: 520, size: 8, color: '#ddd6fe'},
+    // Ear
+    {x: 280, y: 350, size: 5, color: '#f472b6'},
+    {x: 260, y: 380, size: 4, color: '#f9a8d4'},
+    // Hair/Top flowing nodes
+    {x: 550, y: 220, size: 6, color: '#38bdf8'},
+    {x: 600, y: 250, size: 5, color: '#7dd3fc'},
+    {x: 580, y: 300, size: 7, color: '#bae6fd'},
+    {x: 520, y: 350, size: 6, color: '#e0f2fe'},
+    // Neck/Shoulder area
+    {x: 320, y: 550, size: 6, color: '#fb923c'},
+    {x: 280, y: 580, size: 5, color: '#fdba74'},
+    // Background accent nodes
+    {x: 700, y: 400, size: 4, color: '#a5f3fc'},
+    {x: 750, y: 350, size: 3, color: '#cffafe'},
+    {x: 800, y: 450, size: 5, color: '#67e8f9'},
+    {x: 200, y: 600, size: 4, color: '#f0abfc'},
+    {x: 900, y: 200, size: 3, color: '#c4b5fd'},
+];
+
+// Draw connections between nearby nodes
+ctx.strokeStyle = 'rgba(100, 216, 255, 0.3)';
+ctx.lineWidth = 1;
+for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 180) {
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+        }
+    }
+}
+
+// Draw nodes with glow
+nodes.forEach(node => {
+    // Glow
+    const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.size * 4);
+    glow.addColorStop(0, node.color + '80');
+    glow.addColorStop(0.5, node.color + '30');
+    glow.addColorStop(1, 'transparent');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, node.size * 4, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Core
+    ctx.fillStyle = node.color;
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+    ctx.fill();
+});
+
+// Add flowing particle trails
+for (let i = 0; i < 30; i++) {
+    const startX = 200 + Math.random() * 800;
+    const startY = 100 + Math.random() * 600;
+    ctx.strokeStyle = `rgba(100, 216, 255, ${0.1 + Math.random() * 0.2})`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    for (let j = 0; j < 5; j++) {
+        ctx.lineTo(
+            startX + (Math.random() - 0.5) * 100,
+            startY + (Math.random() - 0.5) * 100
+        );
+    }
+    ctx.stroke();
+}
+</script>
+</body>
+</html>
