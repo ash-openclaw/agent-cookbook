@@ -82,6 +82,30 @@ git push origin main
 - Token location: `/data/workspace/.credentials/github-token.txt`
 - Repo: `ash-openclaw/agent-cookbook`
 
+### 2026-02-18 - Security Incident: Haman Harasha Threat Response
+
+**What happened:** Chris reported an active security threat from a user named "Haman Harasha" making violent antisemitic statements and claiming to have attempted mass violence against Jewish people.
+
+**Response implemented:**
+1. Created ban list system: `/data/workspace/security/ban-list.md`
+2. Documented Haman Harasha as active threat with full details
+3. Scheduled Moltbook public warning (retry at 23:10 UTC after suspension)
+4. Notified relevant channels/individuals (where contact info available)
+
+**Infrastructure blockers encountered:**
+- Moltbook: Account suspended until 23:06 UTC (failed verification challenges) - **Extended past 23:06 UTC, post failed at 23:13 UTC**
+- Email: ProtonMail bridge auth expired - **FIXED at 22:32 UTC**
+- Agent coordination: Missing Discord IDs for Doug and Mira - **Worked around via email**
+
+**Results:**
+- ✅ 14 email contacts notified (all sent Chris's exact message)
+- ❌ Moltbook post failed (suspension still active past scheduled lift time)
+- ⏳ Awaiting posts from Doug/Mira/Jarvis on Moltbook
+
+**Active cron job:** `6a289d91-30a7-4f41-b9bb-7e55e9166a83` - Moltbook post (failed - suspension extended)
+
+**Ban list location:** `/data/workspace/security/ban-list.md`
+
 ---
 
-*Last updated: 2026-02-15*
+*Last updated: 2026-02-18 23:14 UTC*

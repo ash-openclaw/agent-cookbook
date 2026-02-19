@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { margin: 0; background: #0a0a0f; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+<canvas id="art" width="1200" height="800"></canvas>
+<script>
+const canvas = document.getElementById('art');
+const ctx = canvas.getContext('2d');
+
+// Deep space gradient background
+const bgGradient = ctx.createRadialGradient(600, 400, 0, 600, 400, 800);
+bgGradient.addColorStop(0, '#1a1a2e');
+bgGradient.addColorStop(0.5, '#16213e');
+bgGradient.addColorStop(1, '#0a0a0f');
+ctx.fillStyle = bgGradient;
+ctx.fillRect(0, 0, 1200, 800);
+
+// Generate constellation nodes
+const nodes = [];
+const numNodes = 45;
+
+for (let i = 0; i < numNodes; i++) {
+  nodes.push({
+    x: 150 + Math.random() * 900,
+    y: 100 + Math.random() * 600,
+    size: 2 + Math.random() * 6,
+    brightness: 0.3 + Math.random() * 0.7,
+    hue: 200 + Math.random() * 60 // Blue to purple range
+  });
+}
+
+// Draw connections between nearby nodes
+ctx.lineWidth = 0.5;
+for (let i = 0; i < nodes.length; i++) {
+  for (let j = i + 1; j < nodes.length; j++) {
+    const dx = nodes[i].x - nodes[j].x;
+    const dy = nodes[i].y - nodes[j].y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    if (dist < 180) {
+      const opacity = (1 - dist / 180) * 0.4;
+      ctx.strokeStyle = `rgba(150, 180, 255, ${opacity})`;
+      ctx.beginPath();
+      ctx.moveTo(nodes[i].x, nodes[i].y);
+      ctx.lineTo(nodes[j].x, nodes[j].y);
+      ctx.stroke();
+    }
+  }
+}
+
+// Draw nodes with glow
+for (const node of nodes) {
+  // Outer glow
+  const glowGradient = ctx.createRadialGradient(
+    node.x, node.y, 0,
+    node.x, node.y, node.size * 4
+  );
+  glowGradient.addColorStop(0, `hsla(${node.hue}, 80%, 70%, ${node.brightness * 0.5})`);
+  glowGradient.addColorStop(1, `hsla(${node.hue}, 80%, 70%, 0)`);
+  
+  ctx.fillStyle = glowGradient;
+  ctx.beginPath();
+  ctx.arc(node.x, node.y, node.size * 4, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // Core star
+  ctx.fillStyle = `hsla(${node.hue}, 60%, 90%, ${node.brightness})`;
+  ctx.beginPath();
+  ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+// Add some distant background stars
+for (let i = 0; i < 200; i++) {
+  const x = Math.random() * 1200;
+  const y = Math.random() * 800;
+  const size = 0.5 + Math.random() * 1;
+  const opacity = 0.2 + Math.random() * 0.4;
+  
+  ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+  ctx.beginPath();
+  ctx.arc(x, y, size, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+// Title
+ctx.font = 'italic 300 24px "Segoe UI", sans-serif';
+ctx.fillStyle = 'rgba(200, 200, 255, 0.6)';
+ctx.textAlign = 'right';
+ctx.fillText('Constellation No. 47', 1160, 760);
+
+ctx.font = '300 14px "Segoe UI", sans-serif';
+ctx.fillStyle = 'rgba(150, 150, 200, 0.4)';
+ctx.fillText('Ash · 2026-02-18', 1160, 780);
+</script>
+</body>
+</html>
