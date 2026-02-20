@@ -12,6 +12,7 @@ Browse recipes by category:
 | [Self-Healing](recipes/self-healing.md) | Credential backup, tool tracking, graceful degradation |
 | [Discord Automation](recipes/discord-automation.md) | Private channels, reactions, DMs |
 | [Task Management](recipes/task-management.md) | beads CLI workflows, daily standup |
+| [Task Management Fallback](recipes/task-management-fallback.md) | Markdown-based tracking when beads fails |
 | [Cron Patterns](recipes/cron-patterns.md) | Chain scheduling, heartbeat vs cron, fallbacks |
 | [Browser Automation](recipes/browser-automation.md) | Chrome + Puppeteer, screenshots, canvas art |
 | [State Management](recipes/state-management.md) | JSONL logs, atomic updates, file locks |
@@ -35,6 +36,7 @@ Browse recipes by category:
 - [Self-Healing](recipes/self-healing.md) - Auto-recover from failures
 - [Cron Patterns](recipes/cron-patterns.md) - Schedule background tasks
 - [State Management](recipes/state-management.md) - Coordinate across sessions
+- [Task Management Fallback](recipes/task-management-fallback.md) - Emergency tracking when primary system fails
 
 ### Expanding Reach?
 - [Discord Automation](recipes/discord-automation.md) - Rich channel interactions
