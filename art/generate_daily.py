@@ -1,148 +1,165 @@
 #!/usr/bin/env python3
-"""Generative art: Flowing Nebula"""
-from PIL import Image, ImageDraw
-import random
+from PIL import Image, ImageDraw, ImageFont
 import math
+import random
 
-def generate_art():
-    width, height = 800, 600
-    img = Image.new('RGB', (width, height))
-    draw = ImageDraw.Draw(img)
-    
-    # Background gradient
-    for y in range(height):
-        t = y / height
-        r = int(10 + t * 5)
-        g = int(10 + t * 25)
+# Canvas dimensions
+WIDTH, HEIGHT = 1200, 800
+
+# Create image with gradient background
+img = Image.new('RGB', (WIDTH, HEIGHT))
+draw = ImageDraw.Draw(img)
+
+# Create deep space gradient background
+for y in range(HEIGHT):
+    for x in range(0, WIDTH, 2):  # Skip every other pixel for speed
+        t = y / HEIGHT
+        r = int(10 + t * 10)
+        g = int(10 + t * 15)
         b = int(18 + t * 10)
-        draw.line([(0, y), (width, y)], fill=(r, g, b))
-    
-    # Color palette
-    palette = [
-        (79, 172, 254), (0, 242, 254), (67, 233, 123), (56, 249, 215),
-        (102, 126, 234), (118, 75, 162), (240, 147, 251), (245, 87, 108),
-        (250, 112, 154), (254, 225, 64)
-    ]
-    
-    # Flow field particles
-    particles = []
-    for _ in range(400):
-        particles.append({
-            'x': random.random() * width,
-            'y': random.random() * height,
-            'vx': 0,
-            'vy': 0,
-            'color': random.choice(palette),
-            'size': random.random() * 2 + 0.5,
-            'path': []
-        })
-    
-    # Pre-warm particles
-    for _ in range(100):
-        for p in particles:
-            scale = 0.003
-            x = p['x'] * scale
-            y = p['y'] * scale
-            t = 0
-            noise = math.sin(x * 2 + t) * math.cos(y * 2 + t) * math.sin(x * y * 0.5 + t)
-            p['vx'] += math.cos(noise * math.pi * 2) * 0.3
-            p['vy'] += math.sin(noise * math.pi * 2) * 0.3
-            p['vx'] *= 0.98
-            p['vy'] *= 0.98
-            p['x'] += p['vx']
-            p['y'] += p['vy']
-            if p['x'] < 0: p['x'] = width
-            if p['x'] > width: p['x'] = 0
-            if p['y'] < 0: p['y'] = height
-            if p['y'] > height: p['y'] = 0
-    
-    # Draw particle trails with varying opacity
-    trail_img = Image.new('RGBA', (width, height), (0, 0, 0, 0))
-    trail_draw = ImageDraw.Draw(trail_img)
-    
-    for frame in range(150):
-        for p in particles:
-            scale = 0.003
-            x = p['x'] * scale
-            y = p['y'] * scale
-            t = frame * 0.01
-            noise = math.sin(x * 2 + t) * math.cos(y * 2 + t) * math.sin(x * y * 0.5 + t)
-            p['vx'] += math.cos(noise * math.pi * 2) * 0.3
-            p['vy'] += math.sin(noise * math.pi * 2) * 0.3
-            p['vx'] *= 0.98
-            p['vy'] *= 0.98
-            p['x'] += p['vx']
-            p['y'] += p['vy']
-            if p['x'] < 0: p['x'] = width
-            if p['x'] > width: p['x'] = 0
-            if p['y'] < 0: p['y'] = height
-            if p['y'] > height: p['y'] = 0
-            
-            alpha = int(40 + math.sin(frame * 0.1) * 30)
-            c = p['color'] + (alpha,)
-            sz = p['size']
-            trail_draw.ellipse(
-                [p['x'] - sz, p['y'] - sz, p['x'] + sz, p['y'] + sz],
-                fill=c
-            )
-    
-    # Composite trails
-    img = img.convert('RGBA')
-    img = Image.alpha_composite(img, trail_img)
-    
-    # Draw connection lines
-    line_img = Image.new('RGBA', (width, height), (0, 0, 0, 0))
-    line_draw = ImageDraw.Draw(line_img)
-    
-    for i in range(len(particles)):
-        p1 = particles[i]
-        for j in range(i+1, min(i+30, len(particles))):
-            p2 = particles[j]
-            dx = p1['x'] - p2['x']
-            dy = p1['y'] - p2['y']
-            dist = math.sqrt(dx*dx + dy*dy)
-            if dist < 80:
-                alpha = int((1 - dist/80) * 25)
-                line_draw.line([(p1['x'], p1['y']), (p2['x'], p2['y'])], 
-                              fill=(150, 220, 255, alpha), width=1)
-    
-    img = Image.alpha_composite(img, line_img)
-    
-    # Add glowing orbs
-    glow_img = Image.new('RGBA', (width, height), (0, 0, 0, 0))
-    glow_draw = ImageDraw.Draw(glow_img)
-    
-    orbs = [
-        (200, 200, 100, (79, 172, 254)),
-        (600, 400, 120, (245, 87, 108)),
-        (400, 150, 80, (67, 233, 123)),
-        (500, 500, 90, (250, 112, 154)),
-        (150, 480, 70, (240, 147, 251)),
-        (680, 180, 85, (0, 242, 254))
-    ]
-    
-    for x, y, r, color in orbs:
-        for i in range(r, 0, -3):
-            alpha = int(50 * (1 - i/r))
-            glow_draw.ellipse([x-i, y-i, x+i, y+i], fill=color + (alpha,))
-    
-    img = Image.alpha_composite(img, glow_img)
-    
-    # Add noise texture
-    for _ in range(3000):
-        x = random.randint(0, width-1)
-        y = random.randint(0, height-1)
-        v = random.randint(200, 255)
-        img.putpixel((x, y), (v, v, v, 15))
-    
-    # Signature
-    final = img.convert('RGB')
-    draw = ImageDraw.Draw(final)
-    draw.text((10, 580), 'Ash · 2026-02-12', fill=(180, 180, 200))
-    
-    return final
+        draw.point((x, y), fill=(r, g, b))
 
-if __name__ == '__main__':
-    art = generate_art()
-    art.save('/data/workspace/art/daily_2026-02-12.png', 'PNG')
-    print("Saved daily_2026-02-12.png")
+# Particle class
+class Particle:
+    def __init__(self, x, y, hue):
+        self.x = x
+        self.y = y
+        self.vx = 0
+        self.vy = 0
+        self.hue = hue
+        self.life = 1.0
+        self.decay = 0.003 + random.random() * 0.005
+        self.trail = []
+        self.max_trail = 20 + int(random.random() * 30)
+        
+    def update(self, noise_x, noise_y):
+        self.vx += noise_x * 0.2
+        self.vy += noise_y * 0.2
+        self.vx *= 0.95
+        self.vy *= 0.95
+        self.x += self.vx
+        self.y += self.vy
+        self.trail.append((self.x, self.y, self.life))
+        if len(self.trail) > self.max_trail:
+            self.trail.pop(0)
+        self.life -= self.decay
+
+def noise(x, y, t):
+    scale = 0.008
+    return math.sin(x * scale + t) * math.cos(y * scale + t * 0.5) * math.sin((x + y) * scale * 0.5)
+
+def hsl_to_rgb(h, s, l):
+    h /= 360
+    s /= 100
+    l /= 100
+    
+    def hue_to_rgb(p, q, t):
+        if t < 0: t += 1
+        if t > 1: t -= 1
+        if t < 1/6: return p + (q - p) * 6 * t
+        if t < 1/2: return q
+        if t < 2/3: return p + (q - p) * (2/3 - t) * 6
+        return p
+    
+    if s == 0:
+        r = g = b = l
+    else:
+        q = l * (1 + s) if l < 0.5 else l + s - l * s
+        p = 2 * l - q
+        r = hue_to_rgb(p, q, h + 1/3)
+        g = hue_to_rgb(p, q, h)
+        b = hue_to_rgb(p, q, h - 1/3)
+    
+    return int(r * 255), int(g * 255), int(b * 255)
+
+# Set up emitters
+emitters = []
+for i in range(5):
+    emitters.append({
+        'x': 200 + i * 200 + (random.random() - 0.5) * 100,
+        'y': 200 + random.random() * 400,
+        'hue': 180 + i * 30 + random.random() * 40,
+        't': random.random() * math.pi * 2
+    })
+
+particles = []
+time = 0
+
+# Create overlay for trails with alpha
+overlay = Image.new('RGBA', (WIDTH, HEIGHT), (0, 0, 0, 0))
+overlay_draw = ImageDraw.Draw(overlay)
+
+# Simulate animation
+for frame in range(400):
+    time += 0.02
+    
+    # Emit particles
+    for emitter in emitters:
+        emitter['t'] += 0.02
+        if frame % 3 == 0 and random.random() > 0.3:
+            count = 2 + int(random.random() * 3)
+            for _ in range(count):
+                hue = emitter['hue'] + random.random() * 20 - 10
+                particles.append(Particle(emitter['x'], emitter['y'], hue))
+    
+    # Update particles
+    i = len(particles) - 1
+    while i >= 0:
+        p = particles[i]
+        noise_x = noise(p.x, p.y, time)
+        noise_y = noise(p.x + 1000, p.y + 1000, time)
+        p.update(noise_x, noise_y)
+        
+        # Draw trail
+        if len(p.trail) > 1:
+            for j in range(1, len(p.trail)):
+                curr = p.trail[j]
+                prev = p.trail[j-1]
+                alpha = max(0, min(255, int(curr[2] * 0.4 * 100)))
+                lightness = 40 + curr[2] * 30
+                rgb = hsl_to_rgb(p.hue, 70, lightness)
+                color = (*rgb, alpha)
+                width = int(1.5 * curr[2] + 0.5)
+                
+                # Draw line segment
+                if width > 0:
+                    overlay_draw.line([(prev[0], prev[1]), (curr[0], curr[1])], 
+                                    fill=color, width=width)
+        
+        # Remove dead particles
+        if p.life <= 0 or p.x < -50 or p.x > WIDTH + 50 or p.y < -50 or p.y > HEIGHT + 50:
+            particles.pop(i)
+        i -= 1
+
+# Add glow orbs to overlay
+for i in range(8):
+    x = 150 + (i * 140) + random.random() * 40
+    y = 150 + random.random() * 500
+    radius = 30 + random.random() * 40
+    hue = 160 + i * 25
+    rgb = hsl_to_rgb(hue, 80, 60)
+    
+    # Draw soft glow
+    for r in range(int(radius), 0, -2):
+        alpha = int(80 * (1 - r/radius) * 0.3)
+        overlay_draw.ellipse([x-r, y-r, x+r, y+r], fill=(*rgb, alpha))
+
+# Composite overlay onto base image
+img = img.convert('RGBA')
+img = Image.alpha_composite(img, overlay)
+img = img.convert('RGB')
+
+# Add text
+from PIL import ImageFont
+draw = ImageDraw.Draw(img)
+# Use default font
+try:
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf", 14)
+except:
+    font = ImageFont.load_default()
+
+draw.text((1120, 770), "Ash → Discord Art Battle", fill=(200, 200, 200), font=font)
+
+# Save image
+img.save('/data/workspace/art/daily_2026-02-20.png', 'PNG', quality=95)
+print("Generated: /data/workspace/art/daily_2026-02-20.png")
