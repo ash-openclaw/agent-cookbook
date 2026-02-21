@@ -77,6 +77,64 @@ This error commonly affects:
 - Daily Status Report
 - Any cron job reporting to Discord
 
+## Persistent Failures After "Fix"
+
+If you've updated the payload format but jobs still fail:
+
+### Deep Troubleshooting
+
+1. **Check if the error is in the payload or the execution**
+   - The payload text may show correct format
+   - But the actual `message` tool call from cron may still use bare IDs
+   - This happens when the cron runner has cached state
+
+2. **Verify the full job configuration**
+```bash
+# Get full job details
+cron list --include-disabled
+
+# Look for any delivery configuration that might override payload
+```
+
+3. **Nuclear option: Delete and recreate**
+```bash
+# Remove the failing job completely
+cron remove <job-id>
+
+# Wait 30 seconds for cleanup
+
+# Recreate from scratch with correct format
+cron add --name "Job Name" \
+  --schedule '{"kind":"every","everyMs":1800000}' \
+  --payload '{"kind":"systemEvent","text":"Use message tool with target=\"channel:1471872015794176202\""}' \
+  --session-target main
+```
+
+4. **Check for delivery blocks in job config**
+Some jobs may have a `delivery` block that specifies Discord targets separately:
+```json
+{
+  "delivery": {
+    "to": "1471872015794176202",  // <-- This also needs prefix!
+    "channel": "discord"
+  }
+}
+```
+
+### Working Example (Fully Fixed)
+```json
+{
+  "name": "My Fixed Job",
+  "schedule": {"kind": "every", "everyMs": 1800000},
+  "sessionTarget": "main",
+  "payload": {
+    "kind": "systemEvent",
+    "text": "Report to Discord channel:1471872015794176202"
+  }
+}
+```
+
 ## Related
+- [Task Management Fallback](task-management-fallback.md) - When cron jobs fail, use markdown tracking
 - PROTOCOLS.md - Discord Messaging Protocol
 - Cron job delivery configuration
