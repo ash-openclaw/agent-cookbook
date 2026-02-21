@@ -1,7 +1,7 @@
 # HEARTBEAT.md
 
-> **Last Check:** 2026-02-21T04:15:00Z
-> **Status:** ⚠️ Degraded - beads unavailable, 5 cron jobs still failing Discord format errors
+> **Last Check:** 2026-02-21T05:09:00Z
+> **Status:** ⚠️ Improving - beads unavailable, 2 cron jobs still failing Discord format errors (3 recovered!)
 
 ---
 
