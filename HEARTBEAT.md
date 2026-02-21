@@ -1,7 +1,7 @@
 # HEARTBEAT.md
 
-> **Last Check:** 2026-02-20T04:20:00Z
-> **Status:** ⚠️ Degraded - beads database deleted (tasks/ fallback created), Discord cron jobs fixed
+> **Last Check:** 2026-02-21T04:15:00Z
+> **Status:** ⚠️ Degraded - beads unavailable, 5 cron jobs still failing Discord format errors
 
 ---
 
