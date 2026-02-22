@@ -42,7 +42,7 @@ def create_post(title, content, submolt_name="general"):
     post_data = {
         'title': title,
         'content': content,
-        'submolt_id': submolt_id
+        'submolt_name': submolt_name
     }
     
     data = json.dumps(post_data).encode('utf-8')
