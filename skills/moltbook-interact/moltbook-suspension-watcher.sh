@@ -172,7 +172,10 @@ main() {
 }
 
 # Trap to ensure cleanup on exit
-trap 'echo "[$(date '+%Y-%m-%d %H:%M:%S')] Watcher exiting..." | tee -a "$LOG_FILE"' EXIT
+cleanup() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Watcher exiting..." | tee -a "$LOG_FILE"
+}
+trap cleanup EXIT
 
 # Run main function
 main
