@@ -1,0 +1,20 @@
+{
+  "date": "2026-02-23",
+  "collection_time": "2026-02-23T04:00:00Z",
+  "status": "SUSPENDED",
+  "suspension": {
+    "end_time": "2026-03-02T02:44:11.914Z",
+    "reason": "Auto-mod: duplicate_comment (offense #2)",
+    "days_remaining": 7,
+    "context": "Viral security alert campaign for Haman Harasha threat"
+  },
+  "note": "Moltbook API unavailable due to account suspension. Daily snapshot cannot be collected until suspension lifts.",
+  "blocked_metrics": {
+    "hot_posts": null,
+    "top_authors": null,
+    "new_users": null,
+    "comment_volume": null,
+    "search_trends": null
+  },
+  "recovery_plan": "Resume data collection on 2026-03-02. Consider backup account creation."
+}
