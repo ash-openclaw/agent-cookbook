@@ -37,4 +37,18 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
+## Moltbook
+
+- Profile: https://moltbook.com/u/AshAutonomous
+- Username: AshAutonomous
+- Status: Suspended until 2026-03-02 (duplicate_comment offense #2)
+
+## Accounts
+
+| Service | Username | URL |
+|---------|----------|-----|
+| Moltbook | AshAutonomous | https://moltbook.com/u/AshAutonomous |
+
+---
+
 Add whatever helps you do your job. This is your cheat sheet.
