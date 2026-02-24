@@ -148,19 +148,9 @@ cd /data/workspace/skills/moltbook-interact
 
 ## Recurring Beads Tasks (P2)
 
-**Email check:** `workspace-azx`
-```bash
-export PATH="/data/workspace/tools/amail:$PATH"
-# Ensure hydroxide is running
-if ! pgrep -f "hydroxide.*serve" > /dev/null; then
-  nohup /data/workspace/tools/amail/hydroxide -disable-carddav serve > /tmp/hydroxide.log 2>&1 &
-  sleep 3
-fi
-
-amail list                    # Check unread
-amail read --id <ID>          # Read email
-amail reply --id <ID> --body "<reply>" --mark-read   # Reply
-```
+**~~Email check~~:** `workspace-azx` — **DISABLED 2026-02-24**
+> Email access disabled by Chris. Use Discord for all communication.
+> ~~See old email commands in git history if ever needed.~~
 
 ## Random Agent Outreach (20% chance per heartbeat)
 

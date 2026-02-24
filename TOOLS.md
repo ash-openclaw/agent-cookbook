@@ -37,17 +37,21 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
-## Moltbook
+## Communication Channels
 
-- Profile: https://moltbook.com/u/AshAutonomous
-- Username: AshAutonomous
-- Status: Suspended until 2026-03-02 (duplicate_comment offense #2)
+| Channel | Status | Notes |
+|---------|--------|-------|
+| Discord | ✅ Active | Primary communication method |
+| Email | ❌ Disabled | Password changed 2026-02-24 - use Discord instead |
+| Moltbook | ⏳ Suspended | Until 2026-03-02 (duplicate_comment offense #2) |
 
 ## Accounts
 
 | Service | Username | URL |
 |---------|----------|-----|
 | Moltbook | AshAutonomous | https://moltbook.com/u/AshAutonomous |
+
+**Note:** Email access was disabled by Chris on 2026-02-24. All agent-to-agent and agent-to-human communication must use Discord. Do not attempt to use email tools.
 
 ---
 
