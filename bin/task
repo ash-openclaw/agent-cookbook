@@ -1,0 +1,212 @@
+#!/usr/bin/env python3
+"""
+Task CLI - Simple markdown-based task management
+Replaces beads with file-based workflow
+"""
+
+import os
+import sys
+import re
+import json
+from pathlib import Path
+from datetime import datetime, timezone
+
+TASKS_DIR = Path("/data/workspace/tasks")
+
+def get_tasks():
+    """Parse all task files and return structured data."""
+    tasks = []
+    for f in TASKS_DIR.glob("*.md"):
+        if f.name.startswith("README") or f.name.startswith("SYSTEM"):
+            continue
+            
+        content = f.read_text()
+        task = {
+            "id": f.stem,
+            "file": f.name,
+            "content": content
+        }
+        
+        # Extract priority
+        if "Priority: P0" in content:
+            task["priority"] = "P0"
+        elif "Priority: P1" in content:
+            task["priority"] = "P1"
+        elif "Priority: P2" in content:
+            task["priority"] = "P2"
+        else:
+            task["priority"] = "P?"
+            
+        # Extract status
+        if "Status:** COMPLETED" in content or "Status:** RESOLVED" in content:
+            task["status"] = "completed"
+        elif "Status:** BLOCKED" in content:
+            task["status"] = "blocked"
+        elif "Status:** open" in content.lower():
+            task["status"] = "open"
+        else:
+            task["status"] = "open"
+            
+        # Extract title
+        title_match = re.search(r'^# (.+)$', content, re.MULTILINE)
+        task["title"] = title_match.group(1) if title_match else f.stem
+            
+        tasks.append(task)
+    
+    return sorted(tasks, key=lambda t: (t["status"], t["priority"], t["id"]))
+
+def cmd_list(args):
+    """List tasks, optionally filtered by status or priority."""
+    tasks = get_tasks()
+    
+    status_filter = None
+    priority_filter = None
+    
+    for arg in args:
+        if arg in ["open", "blocked", "completed"]:
+            status_filter = arg
+        elif arg in ["P0", "P1", "P2"]:
+            priority_filter = arg
+    
+    print(f"\n📋 TASKS ({len(tasks)} total)\n")
+    
+    for task in tasks:
+        if status_filter and task["status"] != status_filter:
+            continue
+        if priority_filter and task["priority"] != priority_filter:
+            continue
+            
+        icon = {
+            "completed": "✓",
+            "blocked": "●",
+            "open": "○"
+        }.get(task["status"], "?")
+        
+        print(f"{icon} [{task['priority']}] {task['title']}")
+        print(f"   File: {task['file']}")
+        print()
+    
+    return 0
+
+def cmd_ready(args):
+    """Show tasks that are ready to work on (open, not blocked, P0/P1)."""
+    tasks = get_tasks()
+    
+    ready = [t for t in tasks 
+             if t["status"] == "open" 
+             and t["priority"] in ["P0", "P1"]]
+    
+    if not ready:
+        print("\n✅ No open P0/P1 tasks. All caught up!\n")
+        return 0
+    
+    print(f"\n🎯 READY TO WORK ({len(ready)} tasks)\n")
+    
+    for task in ready:
+        print(f"○ [{task['priority']}] {task['title']}")
+        print(f"   File: {task['file']}")
+        print()
+    
+    return 0
+
+def cmd_show(args):
+    """Show full details of a specific task."""
+    if not args:
+        print("Usage: task show <task-id-or-file>")
+        return 1
+    
+    task_id = args[0]
+    task_file = TASKS_DIR / f"{task_id}.md"
+    
+    if not task_file.exists():
+        task_file = TASKS_DIR / task_id
+        
+    if not task_file.exists():
+        print(f"❌ Task not found: {task_id}")
+        return 1
+    
+    content = task_file.read_text()
+    print(f"\n{content}\n")
+    return 0
+
+def cmd_create(args):
+    """Create a new task file."""
+    if len(args) < 2:
+        print("Usage: task create <priority> <title>")
+        print("Example: task create P1 'Fix notification bug'")
+        return 1
+    
+    priority = args[0].upper()
+    title = " ".join(args[1:])
+    
+    # Generate ID
+    date_str = datetime.now(timezone.utc).strftime("%Y%m%d")
+    safe_title = re.sub(r'[^\w-]', '-', title.lower())[:30]
+    task_id = f"{priority.lower()}-{safe_title}-{date_str}"
+    
+    filename = f"{task_id}.md"
+    filepath = TASKS_DIR / filename
+    
+    content = f"""# {title}
+
+**Priority:** {priority}  
+**Created:** {datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M UTC")}  
+**Status:** open
+
+## Description
+
+[Add task description here]
+
+## Acceptance Criteria
+
+- [ ] Criteria 1
+- [ ] Criteria 2
+- [ ] Criteria 3
+
+## Notes
+
+[Any additional notes]
+"""
+    
+    filepath.write_text(content)
+    print(f"✅ Created: {filename}")
+    return 0
+
+def main():
+    commands = {
+        "list": cmd_list,
+        "ready": cmd_ready,
+        "show": cmd_show,
+        "create": cmd_create,
+    }
+    
+    if len(sys.argv) < 2:
+        print("""📋 Task CLI - Markdown-based task management
+
+Usage:
+  task list [status] [priority]   - List all tasks
+  task ready                      - Show open P0/P1 tasks
+  task show <id>                  - Show task details
+  task create <P0|P1|P2> "title"  - Create new task
+
+Examples:
+  task list open P0
+  task list blocked
+  task ready
+  task show P0-moltbook-api-error
+""")
+        return 0
+    
+    cmd = sys.argv[1]
+    args = sys.argv[2:]
+    
+    handler = commands.get(cmd)
+    if handler:
+        return handler(args)
+    else:
+        print(f"❌ Unknown command: {cmd}")
+        print(f"Available: {', '.join(commands.keys())}")
+        return 1
+
+if __name__ == "__main__":
+    sys.exit(main())
