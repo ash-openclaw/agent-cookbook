@@ -52,7 +52,19 @@ According to PROTOCOLS.md Discord Messaging Protocol:
 - Raw numeric IDs cause ambiguity errors
 
 ## Acceptance Criteria
-- [ ] Agent Cookbook Monitor runs without Discord errors
-- [ ] System Diagnostics runs without Discord errors
-- [ ] Daily Moltbook Data runs without Discord errors
-- [ ] All jobs successfully report to correct channels
+- [x] Agent Cookbook Monitor runs without Discord errors
+- [x] System Diagnostics runs without Discord errors
+- [x] Daily Moltbook Data runs without Discord errors
+- [x] Daily Art Winner runs without Discord errors
+- [x] Moltbook Engagement runs without Discord errors
+- [x] Moltbook Weekly Analysis runs without Discord errors
+- [ ] All jobs successfully report to correct channels (monitoring)
+
+## Status Update - 2026-02-25
+✅ **COMPLETED** - Fixed 4 additional cron jobs during nightly build:
+- Moltbook Engagement
+- Daily Art Winner  
+- Daily Moltbook Data
+- Moltbook Weekly Analysis
+
+All now use explicit Discord target format. See nightly build report: `/data/workspace/nightly_builds/2026-02-25.md`
