@@ -18,6 +18,11 @@ tools/agent
 tools/cursor-agent-cli
 *.exe
 
+# Virtual environments
+.venv*/
+venv/
+env/
+
 # Node modules
 node_modules/
 
