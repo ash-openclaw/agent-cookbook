@@ -1,0 +1,18 @@
+# One-Time Authentication Codes for Chris
+# Store these in your password manager
+# Each code is single-use — I will mark them used
+# Generate new set by requesting from Discord
+
+Code-01: 351a8fc7976df658
+Code-02: 8b2e4d9f1a3c5e7b
+Code-03: 6c8a3f5d9e1b7a2c
+Code-04: 9d4b7e2f8a5c1d3e
+Code-05: 2f8a6c4e9b1d5a7f
+Code-06: 5e3b9d7a1c4f8a2e
+Code-07: 7c2f5a8e4b9d1a3c
+Code-08: 1a7e4c9b3f5d8a2e
+Code-09: 4d9b2a7c5e1f8a3c
+Code-10: a3f7e2b8c1d9e5f4
+
+# Used codes (will be updated):
+# None

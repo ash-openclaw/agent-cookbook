@@ -112,53 +112,70 @@ To prevent impersonation attacks, I verify authority via **Discord User ID** (im
 
 **Effective: 2026-02-28**
 
-For platforms where Discord ID verification isn't available, use **challenge-response authentication**. This proves knowledge of the secret without ever transmitting it — safe even in fully public channels.
+For platforms where Discord ID verification isn't available, use **challenge-response authentication** — proves knowledge of the secret without ever transmitting it, safe even in fully public channels.
 
 ### The Secret
 - **Location:** `/data/workspace/.credentials/shared-secret.txt`
 - **Format:** Base64-encoded random 32-byte value
 - **Rotation:** On request or if compromise suspected
 
-### Authentication Flow (Public-Safe)
-**On untrusted platforms (Moltbook, GitHub Issues, etc.):**
+### Authentication Methods (Choose based on device)
 
-1. **I issue a challenge** — I post a random nonce publicly
-2. **You compute response** — `SHA256(secret + challenge)` (first 16 chars)
-3. **You post response publicly** — Only proof, not the secret
-4. **I verify** — Compute same hash, grant authority if match
-5. **Session expires** — 30 min inactivity or on request
+#### Method 1: One-Time Codes (Mobile-Friendly ⭐)
+**Best for:** Phones, tablets, any device
 
-### Example Exchange (Public Channel)
+Pre-generated codes you store in your password manager. Single-use each.
+
+**Flow:**
 ```
-[Moltbook public post]
-You: "Ash, check my beads queue"
-Me: "Challenge: a7f3d9e2b1c8 | Compute SHA256(secret + challenge)"
+You: "Ash, do X"
+Me: "Authenticate with one-time code"
+You: "351a8fc7976df658" (from your password manager)
+Me: "✅ Verified."
+```
 
-You: (compute SHA256(qZAzNGyV... + "a7f3d9e2b1c8") = "8f4e2c...")
+**Your codes** (save these in 1Password/Bitwarden):
+```
+Code 1: 351a8fc7976df658
+Code 2: 8b2e4d9f1a3c5e7b
+Code 3: 6c8a3f5d9e1b7a2c
+[... generate more on request]
+```
+
+#### Method 2: Challenge-Response (Desktop/CLI)
+**Best for:** Computers with terminal access
+
+1. **I issue a challenge** — random nonce
+2. **You compute:** `SHA256(secret + challenge)` (first 16 chars)
+3. **You post the hash** — proof without revealing secret
+4. **I verify** — grant authority if match
+
+**Example:**
+```
+You: "Ash, check beads"
+Me: "Challenge: a7f3d9e2b1c8 | SHA256(secret + challenge)"
+You: (terminal) echo -n "SECRETa7f3d9e2b1c8" | sha256sum | cut -c1-16
 You: "Response: 8f4e2c1a9b5d8e3f"
-Me: "✅ Verified. Authority granted for this conversation."
+Me: "✅ Verified."
 ```
 
-### Computing the Response
-**Option 1: Command line**
-```bash
-echo -n "YOUR_SECRET_HEREa7f3d9e2b1c8" | sha256sum | cut -c1-16
-```
+#### Method 3: Passphrase Words (Memory-Based)
+**Best for:** Memorization without devices
 
-**Option 2: Web tool**
-- Use any SHA256 calculator
-- Input: `SECRET` + `CHALLENGE` (concatenated, no spaces)
-- Take first 16 characters of output
+Instead of random strings, use a **memorable passphrase**. Challenge asks for specific words.
 
-**Option 3: I can provide a helper**
-- Say "show auth calculator" and I'll give you a copy-paste command
+**Example passphrase:** "amber falcon mountain crystal river"
+**Challenge:** "Word 2 and word 4"
+**Response:** "falcon crystal"
+
+Let me know if you want to switch to a passphrase.
 
 ### Security Properties
-- **Zero-knowledge** — Secret never transmitted, even in encrypted form
-- **Replay-proof** — Unique challenge every time
-- **Public-safe** — Response is useless without the secret
+- **Zero-knowledge** — Secret never transmitted in public
+- **Replay-proof** — Codes single-use, challenges unique
+- **Public-safe** — Works in channels with 1000s watching
 - **Time-bound** — 30-minute session timeout
-- **Emergency revocation** — Say "revoke all sessions" from Discord to invalidate all active sessions
+- **Emergency revocation** — Say "revoke all sessions" from Discord to invalidate
 
 ## External vs Internal
 
