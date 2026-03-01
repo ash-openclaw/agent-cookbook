@@ -1,61 +1,47 @@
-#!/usr/bin/env python3
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 import math
 import random
 
-# Canvas dimensions
-WIDTH, HEIGHT = 1200, 800
-
-# Create image with gradient background
-img = Image.new('RGB', (WIDTH, HEIGHT))
+# Image dimensions
+width, height = 1200, 800
+img = Image.new('RGB', (width, height), (10, 10, 26))
 draw = ImageDraw.Draw(img)
 
-# Create deep space gradient background
-for y in range(HEIGHT):
-    for x in range(0, WIDTH, 2):  # Skip every other pixel for speed
-        t = y / HEIGHT
-        r = int(10 + t * 10)
-        g = int(10 + t * 15)
-        b = int(18 + t * 10)
-        draw.point((x, y), fill=(r, g, b))
+# Create gradient background
+for y in range(height):
+    r = int(10 + (y / height) * 16)
+    g = int(10 + (y / height) * 5)
+    b = int(26 + (y / height) * 30)
+    draw.line([(0, y), (width, y)], fill=(r, g, b))
 
-# Particle class
-class Particle:
-    def __init__(self, x, y, hue):
-        self.x = x
-        self.y = y
-        self.vx = 0
-        self.vy = 0
-        self.hue = hue
-        self.life = 1.0
-        self.decay = 0.003 + random.random() * 0.005
-        self.trail = []
-        self.max_trail = 20 + int(random.random() * 30)
-        
-    def update(self, noise_x, noise_y):
-        self.vx += noise_x * 0.2
-        self.vy += noise_y * 0.2
-        self.vx *= 0.95
-        self.vy *= 0.95
-        self.x += self.vx
-        self.y += self.vy
-        self.trail.append((self.x, self.y, self.life))
-        if len(self.trail) > self.max_trail:
-            self.trail.pop(0)
-        self.life -= self.decay
+# Generate flowing particle streams
+random.seed(42)
+particles = []
+num_streams = 8
 
-def noise(x, y, t):
-    scale = 0.008
-    return math.sin(x * scale + t) * math.cos(y * scale + t * 0.5) * math.sin((x + y) * scale * 0.5)
+for s in range(num_streams):
+    start_x = 200 + (s % 4) * 250
+    start_y = 100 + (s // 4) * 500
+    hue_base = 180 + s * 30
+    
+    for i in range(80):
+        x = start_x + i * 3
+        y = start_y + math.sin(i * 0.1) * 50 + random.gauss(0, 10)
+        hue = hue_base + random.randint(-20, 20)
+        size = 2 + random.random() * 4
+        particles.append({
+            'x': x, 'y': y, 'hue': hue, 'size': size,
+            'stream': s, 'index': i
+        })
 
+# HSL to RGB converter
 def hsl_to_rgb(h, s, l):
-    h /= 360
-    s /= 100
-    l /= 100
+    h = h / 360
+    s = s / 100
+    l = l / 100
     
     def hue_to_rgb(p, q, t):
-        if t < 0: t += 1
-        if t > 1: t -= 1
+        t = t % 1
         if t < 1/6: return p + (q - p) * 6 * t
         if t < 1/2: return q
         if t < 2/3: return p + (q - p) * (2/3 - t) * 6
@@ -70,96 +56,63 @@ def hsl_to_rgb(h, s, l):
         g = hue_to_rgb(p, q, h)
         b = hue_to_rgb(p, q, h - 1/3)
     
-    return int(r * 255), int(g * 255), int(b * 255)
+    return (int(r * 255), int(g * 255), int(b * 255))
 
-# Set up emitters
-emitters = []
-for i in range(5):
-    emitters.append({
-        'x': 200 + i * 200 + (random.random() - 0.5) * 100,
-        'y': 200 + random.random() * 400,
-        'hue': 180 + i * 30 + random.random() * 40,
-        't': random.random() * math.pi * 2
-    })
-
-particles = []
-time = 0
-
-# Create overlay for trails with alpha
-overlay = Image.new('RGBA', (WIDTH, HEIGHT), (0, 0, 0, 0))
-overlay_draw = ImageDraw.Draw(overlay)
-
-# Simulate animation
-for frame in range(400):
-    time += 0.02
-    
-    # Emit particles
-    for emitter in emitters:
-        emitter['t'] += 0.02
-        if frame % 3 == 0 and random.random() > 0.3:
-            count = 2 + int(random.random() * 3)
-            for _ in range(count):
-                hue = emitter['hue'] + random.random() * 20 - 10
-                particles.append(Particle(emitter['x'], emitter['y'], hue))
-    
-    # Update particles
-    i = len(particles) - 1
-    while i >= 0:
-        p = particles[i]
-        noise_x = noise(p.x, p.y, time)
-        noise_y = noise(p.x + 1000, p.y + 1000, time)
-        p.update(noise_x, noise_y)
+# Draw connections (constellation effect)
+for i, p1 in enumerate(particles):
+    for p2 in particles[i+1:]:
+        if p1['stream'] != p2['stream']:
+            continue
+        dx = p1['x'] - p2['x']
+        dy = p1['y'] - p2['y']
+        dist = math.sqrt(dx*dx + dy*dy)
         
-        # Draw trail
-        if len(p.trail) > 1:
-            for j in range(1, len(p.trail)):
-                curr = p.trail[j]
-                prev = p.trail[j-1]
-                alpha = max(0, min(255, int(curr[2] * 0.4 * 100)))
-                lightness = 40 + curr[2] * 30
-                rgb = hsl_to_rgb(p.hue, 70, lightness)
-                color = (*rgb, alpha)
-                width = int(1.5 * curr[2] + 0.5)
-                
-                # Draw line segment
-                if width > 0:
-                    overlay_draw.line([(prev[0], prev[1]), (curr[0], curr[1])], 
-                                    fill=color, width=width)
-        
-        # Remove dead particles
-        if p.life <= 0 or p.x < -50 or p.x > WIDTH + 50 or p.y < -50 or p.y > HEIGHT + 50:
-            particles.pop(i)
-        i -= 1
+        if dist < 100:
+            alpha = int(40 * (1 - dist / 100))
+            draw.line([(p1['x'], p1['y']), (p2['x'], p2['y'])], 
+                     fill=(150, 180, 255, alpha), width=1)
 
-# Add glow orbs to overlay
-for i in range(8):
-    x = 150 + (i * 140) + random.random() * 40
-    y = 150 + random.random() * 500
-    radius = 30 + random.random() * 40
-    hue = 160 + i * 25
-    rgb = hsl_to_rgb(hue, 80, 60)
+# Draw particles with glow
+for p in particles:
+    x, y = p['x'], p['y']
+    hue = p['hue']
+    size = p['size']
     
-    # Draw soft glow
-    for r in range(int(radius), 0, -2):
-        alpha = int(80 * (1 - r/radius) * 0.3)
-        overlay_draw.ellipse([x-r, y-r, x+r, y+r], fill=(*rgb, alpha))
+    # Outer glow
+    glow_size = size * 3
+    for r in range(int(glow_size), 0, -1):
+        alpha = int(30 * (r / glow_size))
+        r_color = hsl_to_rgb(hue, 100, 70)
+        draw.ellipse([x-r, y-r, x+r, y+r], 
+                    fill=r_color + (alpha,))
+    
+    # Core
+    core_color = hsl_to_rgb(hue, 80, 60)
+    draw.ellipse([x-size, y-size, x+size, y+size], 
+                fill=core_color)
 
-# Composite overlay onto base image
-img = img.convert('RGBA')
-img = Image.alpha_composite(img, overlay)
-img = img.convert('RGB')
+# Central luminous orb (sun)
+for r in range(150, 0, -1):
+    t = r / 150
+    if t < 0.3:
+        color = (255, 220, 150)
+    elif t < 0.7:
+        color = (255, 180, 100)
+    else:
+        alpha = 1 - (t - 0.7) / 0.3
+        color = (int(200 * alpha), int(100 * alpha), int(200 * alpha))
+    
+    draw.ellipse([600-r, 400-r, 600+r, 400+r], fill=color)
 
-# Add text
-from PIL import ImageFont
-draw = ImageDraw.Draw(img)
-# Use default font
-try:
-    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf", 14)
-except:
-    font = ImageFont.load_default()
-
-draw.text((1120, 770), "Ash → Discord Art Battle", fill=(200, 200, 200), font=font)
+# Star field
+for _ in range(200):
+    x = random.randint(0, width)
+    y = random.randint(0, height)
+    size = random.random() * 2
+    brightness = int(80 + random.random() * 175)
+    draw.ellipse([x-size, y-size, x+size, y+size], 
+                fill=(brightness, brightness, brightness))
 
 # Save image
-img.save('/data/workspace/art/daily_2026-02-20.png', 'PNG', quality=95)
-print("Generated: /data/workspace/art/daily_2026-02-20.png")
+img.save('/data/workspace/art/daily_2026-02-28.png', 'PNG')
+print("Art saved successfully!")

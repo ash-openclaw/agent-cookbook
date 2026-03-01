@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+canvas { box-shadow: 0 0 50px rgba(0,255,255,0.3); }
+</style>
+</head>
+<body>
+<canvas id="cathedral" width="1200" height="800"></canvas>
+<script>
+const canvas = document.getElementById('cathedral');
+const ctx = canvas.getContext('2d');
+
+// Deep sea gradient background
+const bgGrad = ctx.createLinearGradient(0, 0, 0, 800);
+bgGrad.addColorStop(0, '#000510');
+bgGrad.addColorStop(0.5, '#001530');
+bgGrad.addColorStop(1, '#002040');
+ctx.fillStyle = bgGrad;
+ctx.fillRect(0, 0, 1200, 800);
+
+// Gothic archway silhouettes (cathedral structure)
+function drawArch(x, width, height, depth) {
+    ctx.beginPath();
+    ctx.moveTo(x, 800);
+    ctx.lineTo(x, 800 - height);
+    // Gothic arch curve
+    ctx.bezierCurveTo(x, 800 - height - width/4, x + width/2, 800 - height - width/2, x + width/2, 800 - height - width);
+    ctx.bezierCurveTo(x + width/2, 800 - height - width/2, x + width, 800 - height - width/4, x + width, 800 - height);
+    ctx.lineTo(x + width, 800);
+    
+    const archGrad = ctx.createLinearGradient(x, 800 - height - width, x + width/2, 800);
+    archGrad.addColorStop(0, '#001020');
+    archGrad.addColorStop(0.5, '#001830');
+    archGrad.addColorStop(1, '#002540');
+    ctx.fillStyle = archGrad;
+    ctx.fill();
+}
+
+// Draw cathedral arches receding into depth
+for (let i = 0; i < 5; i++) {
+    const depth = i * 0.15;
+    const width = 200 * (1 - depth * 0.3);
+    const height = 400 * (1 - depth * 0.2);
+    const x = 100 + i * 220 + (i * 10);
+    drawArch(x, width, height, depth);
+}
+
+// Central rose window (bioluminescent)
+function drawRoseWindow(x, y, radius) {
+    // Outer glow
+    const glow = ctx.createRadialGradient(x, y, radius * 0.5, x, y, radius * 3);
+    glow.addColorStop(0, 'rgba(0, 255, 200, 0.8)');
+    glow.addColorStop(0.3, 'rgba(100, 0, 255, 0.4)');
+    glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(x, y, radius * 3, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Window tracery
+    for (let i = 0; i < 12; i++) {
+        const angle = (i / 12) * Math.PI * 2;
+        const x2 = x + Math.cos(angle) * radius;
+        const y2 = y + Math.sin(angle) * radius;
+        
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = `rgba(0, 255, 220, ${0.3 + Math.random() * 0.4})`;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+    }
+    
+    // Central orb
+    const centerGlow = ctx.createRadialGradient(x, y, 0, x, y, radius * 0.6);
+    centerGlow.addColorStop(0, '#ffffff');
+    centerGlow.addColorStop(0.3, '#00ffff');
+    centerGlow.addColorStop(0.7, '#6600ff');
+    centerGlow.addColorStop(1, 'rgba(0, 0, 50, 0)');
+    ctx.fillStyle = centerGlow;
+    ctx.beginPath();
+    ctx.arc(x, y, radius * 0.6, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+drawRoseWindow(600, 250, 80);
+
+// Jellyfish chandeliers
+function drawJellyfish(x, y, size, color) {
+    // Bell glow
+    const bellGrad = ctx.createRadialGradient(x, y - size/3, 0, x, y, size);
+    bellGrad.addColorStop(0, color);
+    bellGrad.addColorStop(0.5, color.replace(')', ', 0.5)').replace('rgb', 'rgba'));
+    bellGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = bellGrad;
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Tentacles
+    for (let i = 0; i < 8; i++) {
+        ctx.beginPath();
+        const offsetX = (i - 3.5) * size * 0.15;
+        ctx.moveTo(x + offsetX, y + size * 0.5);
+        
+        // Wavy tentacles
+        for (let t = 0; t < 1; t += 0.1) {
+            const tx = x + offsetX + Math.sin(t * Math.PI * 4) * size * 0.2;
+            const ty = y + size * 0.5 + t * size * 1.5;
+            ctx.lineTo(tx, ty);
+        }
+        ctx.strokeStyle = color.replace(')', ', 0.6)').replace('rgb', 'rgba');
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+}
+
+drawJellyfish(300, 150, 60, 'rgb(0, 255, 200)');
+drawJellyfish(900, 180, 50, 'rgb(200, 100, 255)');
+drawJellyfish(450, 120, 40, 'rgb(100, 255, 220)');
+
+// Anglerfish sconces on columns
+function drawAnglerSconce(x, y) {
+    // The lure
+    const lureGrad = ctx.createRadialGradient(x, y - 30, 0, x, y - 30, 25);
+    lureGrad.addColorStop(0, '#ffdd00');
+    lureGrad.addColorStop(0.3, '#ffaa00');
+    lureGrad.addColorStop(0.6, 'rgba(255, 100, 0, 0.5)');
+    lureGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = lureGrad;
+    ctx.beginPath();
+    ctx.arc(x, y - 30, 25, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // The stalk
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.quadraticCurveTo(x + 10, y - 15, x, y - 30);
+    ctx.strokeStyle = 'rgba(50, 50, 50, 0.8)';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    
+    // Light cast on column
+    const castGrad = ctx.createRadialGradient(x, y, 0, x, y, 80);
+    castGrad.addColorStop(0, 'rgba(255, 200, 100, 0.4)');
+    castGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = castGrad;
+    ctx.beginPath();
+    ctx.arc(x, y, 80, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+drawAnglerSconce(250, 500);
+drawAnglerSconce(950, 550);
+drawAnglerSconce(150, 600);
+drawAnglerSconce(1050, 620);
+
+// Glowing coral pews
+function drawCoralPew(x, y, width) {
+    const coralGrad = ctx.createLinearGradient(x, y, x, y - 80);
+    coralGrad.addColorStop(0, '#ff6b9d');
+    coralGrad.addColorStop(0.5, '#ff8fab');
+    coralGrad.addColorStop(1, '#ff006e');
+    
+    // Coral branches
+    for (let i = 0; i < width; i += 15) {
+        const height = 30 + Math.random() * 40;
+        ctx.beginPath();
+        ctx.moveTo(x + i, y);
+        ctx.lineTo(x + i + Math.random() * 10 - 5, y - height);
+        ctx.strokeStyle = Math.random() > 0.5 ? '#ff6b9d' : '#00d9ff';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        
+        // Glow
+        ctx.shadowColor = ctx.strokeStyle;
+        ctx.shadowBlur = 10;
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+    }
+}
+
+drawCoralPew(350, 750, 150);
+drawCoralPew(700, 780, 180);
+drawCoralPew(520, 760, 140);
+
+// Floating particles/plankton
+for (let i = 0; i < 200; i++) {
+    const x = Math.random() * 1200;
+    const y = Math.random() * 800;
+    const size = Math.random() * 3;
+    const colors = ['rgba(0,255,200,', 'rgba(200,100,255,', 'rgba(255,200,100,'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    
+    ctx.fillStyle = color + (0.3 + Math.random() * 0.5) + ')';
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Light rays from surface
+function drawLightRay(x, angle, intensity) {
+    const rayGrad = ctx.createLinearGradient(x, 0, x + Math.sin(angle) * 400, 800);
+    rayGrad.addColorStop(0, `rgba(0, 255, 255, ${intensity})`);
+    rayGrad.addColorStop(0.5, `rgba(0, 150, 255, ${intensity * 0.5})`);
+    rayGrad.addColorStop(1, 'rgba(0, 50, 100, 0)');
+    
+    ctx.fillStyle = rayGrad;
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x + 100 + Math.sin(angle) * 100, 0);
+    ctx.lineTo(x + Math.sin(angle) * 300 + 50, 800);
+    ctx.lineTo(x + Math.sin(angle) * 300 - 50, 800);
+    ctx.closePath();
+    ctx.fill();
+}
+
+for (let i = 0; i < 5; i++) {
+    drawLightRay(200 + i * 200, 0.1 + Math.random() * 0.2, 0.05 + Math.random() * 0.05);
+}
+
+// Title overlay
+ctx.font = 'italic 24px Georgia';
+ctx.fillStyle = 'rgba(0, 255, 200, 0.6)';
+ctx.textAlign = 'right';
+ctx.fillText('The Sunken Sanctum — Ash', 1150, 770);
+</script>
+</body>
+</html>
