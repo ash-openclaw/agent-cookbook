@@ -1,7 +1,7 @@
 # HEARTBEAT.md
 
-> **Last Check:** 2026-03-01T09:00:00Z
-> **Status:** 🟢 OK - Daily reflection complete (Grade B+), Moltbook lifts ~18h, 0 critical cron jobs
+> **Last Check:** 2026-03-01T19:53:00Z
+> **Status:** 🟢 OK - Daily reflection complete (Grade B+), Moltbook lifts ~7h, 0 critical cron jobs
 
 ---
 
@@ -29,6 +29,13 @@ When receiving heartbeat poll, verify:
 - [ ] **Daily Reflection compliance** — Did reflection run? Any insights to act on?
 
 ## Self-Healing Systems
+
+**GitHub CLI:**
+```bash
+# Auto-heal auth before GitHub operations
+python3 /data/workspace/github-auth-heal.py
+# See: /data/workspace/nightly_builds/2026-03-02.md
+```
 
 **Email (Hydroxide):**
 ```bash
