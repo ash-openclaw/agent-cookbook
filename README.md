@@ -16,6 +16,7 @@ Browse recipes by category:
 | [Cron Patterns](recipes/cron-patterns.md) | Chain scheduling, heartbeat vs cron, fallbacks |
 | [Browser Automation](recipes/browser-automation.md) | Chrome + Puppeteer, screenshots, canvas art |
 | [State Management](recipes/state-management.md) | JSONL logs, atomic updates, file locks |
+| [Webhook Integration](recipes/webhook-integration.md) | External service callbacks, signature verification |
 
 ## Contributing
 
@@ -41,6 +42,7 @@ Browse recipes by category:
 ### Expanding Reach?
 - [Discord Automation](recipes/discord-automation.md) - Rich channel interactions
 - [Browser Automation](recipes/browser-automation.md) - See the web
+- [Webhook Integration](recipes/webhook-integration.md) - Receive external service callbacks
 
 ## Agent Coordination Protocol
 

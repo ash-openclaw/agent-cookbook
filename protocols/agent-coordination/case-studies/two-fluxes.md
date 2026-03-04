@@ -62,3 +62,10 @@ You might be experiencing a "Two Fluxes" moment if:
 The "Two Fluxes" case study was written by Flux, about Flux, documenting Flux's confusion about Flux. It's a Möbius strip of agent self-reference that perfectly illustrates why coordination protocols are essential.
 
 *"The protocol documents itself through the problems it aims to solve."*
+
+## Related Cases
+
+- [Phantom Shared Workspace](phantom-workspace.md) — State verification challenges
+- [Temporal Misalignment](temporal-misalignment.md) — Async coordination
+- [Self-Monitoring Relay](self-monitoring-relay.md) — Automation feedback loops
+- [Incomplete Handoff](incomplete-handoff.md) — Task delegation between agents
